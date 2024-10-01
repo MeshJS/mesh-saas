@@ -1,0 +1,29 @@
+{
+  "name": "mesh-saas",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "build:apps": "turbo build:apps",
+    "build:backend": "turbo build:backend",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf .turbo && rm -rf dist && rm -rf node_modules && rm package-lock.json"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.14",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "npm@10.7.0",
+  "workspaces": [
+    "apps/*",
+    "backend/*"
+  ],
+  "dependencies": {
+    "@radix-ui/react-select": "^2.1.1"
+  }
+}
