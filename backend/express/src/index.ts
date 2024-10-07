@@ -1,0 +1,29 @@
+import express, { Request, Response, NextFunction } from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import jsontoTxRouter from "./routes/users.jsontoTx.route";
+
+console.log("Starting application...");
+
+const app = express();
+app.use(bodyParser.json());
+app.use(cors());
+
+console.log("Setting up routes...");
+
+app.use("/users/jsontoTx", jsontoTxRouter);
+
+// Error handling middleware
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  const statusCode = res.statusCode || 500;
+  console.error(err.stack);
+  res.status(statusCode).json({ error: err.message });
+});
+
+// Start the server
+const port = parseInt(process.env.PORT || "3000");
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+
+export default app;
