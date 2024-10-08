@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
+    "@heroicons/react": "^2.1.5",
     "@meshsdk/core": "^1.6.13",
     "@meshsdk/react": "^1.6.13",
     "@prisma/client": "^5.14.0",
