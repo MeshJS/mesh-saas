@@ -22,8 +22,8 @@ export const SIDENAV: {
   ],
   transaction: [
     {
-      label: "Demo",
-      href: "/transaction/demo",
+      label: "JSON to Tx",
+      href: "/transaction/jsonToTx",
     },
   ],
 };

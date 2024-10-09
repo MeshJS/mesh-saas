@@ -11,26 +11,25 @@ import { useWallet } from "@meshsdk/react";
 import { useCallback, useEffect, useState } from "react";
 
 const blockfrostApiKey = process.env.NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD!;
-
 const meshPoolId = process.env.NEXT_PUBLIC_MESH_POOL_ID!;
-const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!;
+const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!; // (Leon, 10/08/2024) - Use CIP-105 DRep ID for backward compatibility, as current Mesh csl does not support CIP-129 yet
 
 export const useValidateStaking = () => {
   const blockchainProvider = new BlockfrostProvider(blockfrostApiKey);
 
   const walletInfo = useWallet();
 
-  const [rewardAddress, setRewardAddress] = useState<string | null>(null);
   const [wallet, setBrowserWallet] = useState<BrowserWallet | null>(null);
+  const [rewardAddress, setRewardAddress] = useState<string | null>(null);
+
   const [stakingError, setErrorMessage] = useState<string | null>(null);
 
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isStaked, setIsStaked] = useState<boolean>(false);
   const [isDRepDelegated, setIsDRepDelegated] = useState<boolean>(false);
-  const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
   const checkAddressInfo = async (stakeAddress: string) => {
     const info = await blockchainProvider.get(`/accounts/${stakeAddress}`);
-    console.log(info);
 
     const { active, pool_id, drep_id } = info;
 
@@ -68,7 +67,7 @@ export const useValidateStaking = () => {
       const unsignedTx = await tx.build();
       const signedTx = await wallet.signTx(unsignedTx);
       const txHash = await wallet.submitTx(signedTx);
-      console.log("txHash: ", txHash);
+      console.log("StakeToPool success: ", txHash);
     } catch (e) {
       setErrorMessage(`Error staking to pool: ${e}`);
     }
@@ -112,16 +111,15 @@ export const useValidateStaking = () => {
       )
       .changeAddress(changeAddress);
 
-    console.log(meshDRepId, txBuilder);
-
     const unsignedTx = await txBuilder.complete();
     const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
-    console.log("txHash: ", txHash);
+    console.log("DelegateDRep success: ", txHash);
   }, [rewardAddress, wallet]);
 
   useEffect(() => {
     if (walletInfo.name) {
+      console.log(wallet);
       BrowserWallet.enable(walletInfo.name).then((wallet) => {
         setBrowserWallet(wallet);
         wallet.getRewardAddresses().then((addresses) => {

@@ -21,7 +21,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 // Start the server
-const port = parseInt(process.env.PORT || "3000");
+const port = parseInt(process.env.PORT || "3001");
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

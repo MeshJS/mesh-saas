@@ -29,6 +29,15 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --shiki-color-text: theme("colors.white");
+    --shiki-token-constant: theme("colors.emerald.300");
+    --shiki-token-string: theme("colors.emerald.300");
+    --shiki-token-comment: theme("colors.zinc.500");
+    --shiki-token-keyword: theme("colors.sky.300");
+    --shiki-token-parameter: theme("colors.pink.300");
+    --shiki-token-function: theme("colors.violet.300");
+    --shiki-token-string-expression: theme("colors.emerald.300");
+    --shiki-token-punctuation: theme("colors.zinc.200");
   }
 
   .dark {
@@ -56,13 +65,36 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --shiki-color-text: theme("colors.white");
+    --shiki-token-constant: theme("colors.emerald.300");
+    --shiki-token-string: theme("colors.emerald.300");
+    --shiki-token-comment: theme("colors.zinc.500");
+    --shiki-token-keyword: theme("colors.sky.300");
+    --shiki-token-parameter: theme("colors.pink.300");
+    --shiki-token-function: theme("colors.violet.300");
+    --shiki-token-string-expression: theme("colors.emerald.300");
+    --shiki-token-punctuation: theme("colors.zinc.200");
   }
 }
 
 @layer base {
   * {
     @apply border-border;
+    scrollbar-width: thin;
+    scrollbar-color: var(--background);
   }
+
+  *::-webkit-scrollbar-track {
+    background: var(--background);
+    border-radius: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--background);
+    border-radius: 14px;
+    border: 3px solid var(--background);
+  }
+
   body {
     @apply bg-background text-foreground;
   }

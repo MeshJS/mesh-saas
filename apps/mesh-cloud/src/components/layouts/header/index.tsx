@@ -1,10 +1,9 @@
-import { CardanoWallet } from "@meshsdk/react";
-import Nav from "./nav";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useValidateStaking } from "@/hooks/useValidateStaking";
-import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Label } from "@/components/ui/label";
+import { useValidateStaking } from "@/hooks/useValidateStaking";
+import { CardanoWallet } from "@meshsdk/react";
+import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import Nav from "./nav";
 
 export default function Header() {
   const {
@@ -48,7 +47,10 @@ export default function Header() {
                 )}
 
                 {isDRepDelegated ? (
-                  <Label className="flex items-center gap-2">Delegated</Label>
+                  <Label className="flex items-center gap-2">
+                    <CheckCircledIcon className="h-6 w-6" />
+                    Delegated
+                  </Label>
                 ) : (
                   <Button
                     type="button"
