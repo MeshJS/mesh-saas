@@ -45,7 +45,6 @@ export const useValidateStaking = () => {
   };
 
   const stakeToPool = useCallback(async () => {
-    console.log(rewardAddress, wallet, isRegistered, meshPoolId);
     if (!rewardAddress) {
       setErrorMessage("Connect your wallet first before staking to pool");
       return;
@@ -68,6 +67,11 @@ export const useValidateStaking = () => {
       const signedTx = await wallet.signTx(unsignedTx);
       const txHash = await wallet.submitTx(signedTx);
       console.log("StakeToPool success: ", txHash);
+
+      if (txHash) {
+        setErrorMessage(null);
+        setIsStaked(true);
+      }
     } catch (e) {
       setErrorMessage(`Error staking to pool: ${e}`);
     }
@@ -115,11 +119,15 @@ export const useValidateStaking = () => {
     const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
     console.log("DelegateDRep success: ", txHash);
+
+    if (txHash) {
+      setErrorMessage(null);
+      setIsDRepDelegated(true);
+    }
   }, [rewardAddress, wallet]);
 
   useEffect(() => {
     if (walletInfo.name) {
-      console.log(wallet);
       BrowserWallet.enable(walletInfo.name).then((wallet) => {
         setBrowserWallet(wallet);
         wallet.getRewardAddresses().then((addresses) => {
