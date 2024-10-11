@@ -22,13 +22,17 @@ import { getProvider } from "@/lib/provider";
 
 export function SelectNetwork({
   setValue,
+  placeholder,
 }: {
   setValue: Dispatch<SetStateAction<any>>;
+  placeholder?: string;
 }) {
   return (
     <Select onValueChange={setValue}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a Network" />
+        <SelectValue
+          placeholder={placeholder ? placeholder : "Select a Network"}
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

@@ -14,47 +14,94 @@ import {
 } from "@/components/ui/select";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import TransactionLayout from "./layout";
-import noScriptTxInJson from "./sampleJSONs/all_money_goes_back_to_change_address.json";
-import scriptTxInJson from "./sampleJSONs/tx_spend_a_script_input.json";
-import scriptMintJson from "./sampleJSONs/minting_plutus_asset.json";
-import noScriptTxInJson2 from "./sampleJSONs/send_with_output_to_specific_address.json";
-import scriptMintJson_no_collateral from "./sampleJSONs/minting_plutus_asset_with_no_collateral.json";
-import scriptTxInJson_no_collateral from "./sampleJSONs/tx_spend_a_script_input_with_no_collateral.json";
+import { SelectNetwork } from "@/apps/dev/transaction";
+
+import noScriptTxInJson_preprod from "@/data/sampleJSONs/preprod/all_money_goes_back_to_change_address_preprod.json";
+import noScriptTxInJson2_preprod from "@/data/sampleJSONs/preprod/send_with_output_to_specific_address_preprod.json";
+import scriptTxInJson_preprod from "@/data/sampleJSONs/preprod/tx_spend_a_script_input_preprod.json";
+import scriptMintJson_preprod from "@/data/sampleJSONs/preprod/minting_plutus_asset_preprod.json";
+import scriptMintJson_no_collateral_preprod from "@/data/sampleJSONs/preprod/minting_plutus_asset_with_no_collateral_preprod.json";
+import scriptTxInJson_no_collateral_preprod from "@/data/sampleJSONs/preprod/tx_spend_a_script_input_with_no_collateral_preprod.json";
+import noscriptTxIn_and_scriptMintJson_mainnet from "@/data/sampleJSONs/mainnet/all_money_goes_back_to_change_address_mainnet.json";
+// import scriptTxInJson_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/tx_spend_a_script_input_mainnet.json";
+// import scriptMintJson_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/minting_plutus_asset_mainnet.json";
+// import noscriptTxIn_and_scriptMintJson2_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/send_with_output_to_specific_address_mainnet.json";
+// import scriptMintJson_no_collateral_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/minting_plutus_asset_with_no_collateral_mainnet.json";
+// import scriptTxInJson_no_collateral_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/tx_spend_a_script_input_with_no_collateral_mainnet.json";
 
 const EXPRESS_BACKEND_URL = process.env.NEXT_PUBLIC_EXPRESS_BACKEND_URL!;
 
 export function SelectJSON({
   setValue,
+  network = "preprod",
+  placeholder = "JSON with no ScriptTxIn and ScriptSource (Preprod)",
 }: {
   setValue: Dispatch<SetStateAction<any>>;
+  network: "mainnet" | "preprod" | "preview";
+  placeholder?: string;
 }) {
   return (
     <Select onValueChange={setValue}>
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="JSON with no ScriptTxIn and ScriptSource" />
+        <SelectValue
+          placeholder={
+            placeholder
+              ? placeholder
+              : "JSON with no ScriptTxIn and ScriptSource (Preprod)"
+          }
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value={JSON.stringify(noScriptTxInJson)}>
-            JSON with no ScriptTxIn and ScriptSource
-          </SelectItem>
-          <SelectItem value={JSON.stringify(noScriptTxInJson2)}>
-            JSON with no ScriptTxIn and ScriptSource 2
-          </SelectItem>
-          <SelectItem value={JSON.stringify(scriptTxInJson)}>
-            JSON with ScriptTxIn and collaterals
-          </SelectItem>
-          <SelectItem value={JSON.stringify(scriptMintJson)}>
-            JSON with ScriptMint and collaterals
-          </SelectItem>
-          <SelectItem value={JSON.stringify(scriptMintJson_no_collateral)}>
-            JSON with ScriptMint and collaterals 2 (Error Example)
-          </SelectItem>
-          <SelectItem value={JSON.stringify(scriptTxInJson_no_collateral)}>
-            JSON with ScriptTxIn but without collateral (Error Example)
-          </SelectItem>
+          {network === "mainnet" && (
+            <SelectItem
+              value={JSON.stringify(noscriptTxIn_and_scriptMintJson_mainnet)}
+            >
+              JSON with no ScriptTxIn and ScriptSource
+            </SelectItem>
+          )}
+
+          {network === "preprod" && (
+            <>
+              <SelectItem value={JSON.stringify(noScriptTxInJson_preprod)}>
+                JSON with no ScriptTxIn and ScriptSource (Preprod)
+              </SelectItem>
+              <SelectItem value={JSON.stringify(noScriptTxInJson2_preprod)}>
+                JSON with no ScriptTxIn and ScriptSource 2 (Preprod)
+              </SelectItem>
+              <SelectItem value={JSON.stringify(scriptTxInJson_preprod)}>
+                JSON with ScriptTxIn and collaterals (Preprod)
+              </SelectItem>
+              <SelectItem value={JSON.stringify(scriptMintJson_preprod)}>
+                JSON with ScriptMint and collaterals (Preprod)
+              </SelectItem>
+              <SelectItem
+                value={JSON.stringify(scriptMintJson_no_collateral_preprod)}
+              >
+                JSON with ScriptMint and collaterals 2 (Preprod) (Error Example)
+              </SelectItem>
+              <SelectItem
+                value={JSON.stringify(scriptTxInJson_no_collateral_preprod)}
+              >
+                JSON with ScriptTxIn but without collateral (Preprod) (Error
+                Example)
+              </SelectItem>
+            </>
+          )}
+
+          {network === "preview" && (
+            <>
+              <SelectItem
+                value={JSON.stringify({
+                  error: "No JSON available for Preview",
+                })}
+              >
+                No JSON available for Preview
+              </SelectItem>
+            </>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -65,10 +112,41 @@ export default function JsonToTx() {
   const { isStaked, isDRepDelegated } = useValidateStaking();
 
   const [loading, setLoading] = useState(false);
-  const [input, setInput] = useState(JSON.stringify(noScriptTxInJson));
+  const [network, setNetwork] = useState<"mainnet" | "preprod" | "preview">(
+    "preprod",
+  );
+  const [jsonSelectPlaceholder, setJsonSelectPlaceholder] = useState(
+    "JSON with no ScriptTxIn and ScriptSource (Preprod)",
+  );
+  const [input, setInput] = useState(JSON.stringify(noScriptTxInJson_preprod));
 
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    switch (network) {
+      case "mainnet":
+        setInput(JSON.stringify(noscriptTxIn_and_scriptMintJson_mainnet));
+        setJsonSelectPlaceholder(
+          "JSON with no ScriptTxIn and ScriptSource (Mainnet)",
+        );
+        break;
+      case "preprod":
+        setInput(JSON.stringify(noScriptTxInJson_preprod));
+        setJsonSelectPlaceholder(
+          "JSON with no ScriptTxIn and ScriptSource (Preprod)",
+        );
+        break;
+      case "preview":
+        setInput(
+          JSON.stringify({
+            error: "No JSON available for Preview",
+          }),
+        );
+        setJsonSelectPlaceholder("No JSON available for Preview");
+        break;
+    }
+  }, [network]);
 
   const runAPI = async () => {
     setLoading(true);
@@ -117,7 +195,12 @@ export default function JsonToTx() {
       >
         <div className="grid gap-3">
           <Label htmlFor="input">API Input</Label>
-          <SelectJSON setValue={setInput} />
+          <SelectNetwork setValue={setNetwork} placeholder="Preprod" />
+          <SelectJSON
+            setValue={setInput}
+            network={network}
+            placeholder={jsonSelectPlaceholder}
+          />
 
           <Codeblock data={JSON.parse(input)} isJson language="javascript" />
           {/* <Textarea
