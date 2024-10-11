@@ -72,8 +72,9 @@ export const useValidateStaking = () => {
         setErrorMessage(null);
         setIsStaked(true);
       }
-    } catch (e) {
-      setErrorMessage(`Error staking to pool: ${e}`);
+    } catch (error) {
+      setErrorMessage(`Error staking to pool.`);
+      console.log(error);
     }
   }, [rewardAddress, wallet, isRegistered, meshPoolId]);
 

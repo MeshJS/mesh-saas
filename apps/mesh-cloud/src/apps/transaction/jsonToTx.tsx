@@ -79,7 +79,8 @@ export default function JsonToTx() {
       const data = res.data;
       setSuccess(data.unsignedTx);
     } catch (error) {
-      setError("Error: " + error);
+      setError(`Error calling API.`);
+      console.log(error);
     } finally {
       setLoading(false);
     }
