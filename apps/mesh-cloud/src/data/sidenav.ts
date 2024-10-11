@@ -20,4 +20,10 @@ export const SIDENAV: {
       href: "/dev/transaction",
     },
   ],
+  transaction: [
+    {
+      label: "JSON to Tx",
+      href: "/transaction/jsonToTx",
+    },
+  ],
 };
