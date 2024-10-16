@@ -145,5 +145,6 @@
     "strategy": "experimental",
     "includeTxFees": true
   },
+  "votes": [],
   "network": "preprod"
 }

@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Mesh Cloud Backend Server API",
+      title: "Mesh SaaS Backend Server API",
       version: "1.0.0",
-      description: "API documentation for Mesh Cloud Backend Server",
+      description: "API documentation for Mesh SaaS Backend Server",
     },
     servers: [
       {

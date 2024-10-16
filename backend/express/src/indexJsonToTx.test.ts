@@ -1,21 +1,21 @@
 import request from "supertest";
 import app from "./index"; // Import your Express app
-import noscriptTxIn_and_scriptMintJson_preprod from "../test/sampleJSONs/preprod/all_money_goes_back_to_change_address_preprod.json";
-import scriptTxInJson_preprod from "../test/sampleJSONs/preprod/tx_spend_a_script_input_preprod.json";
-import scriptMintJson_preprod from "../test/sampleJSONs/preprod/minting_plutus_asset_preprod.json";
-import noscriptTxIn_and_scriptMintJson2_preprod from "../test/sampleJSONs/preprod/send_with_output_to_specific_address_preprod.json";
-import scriptMintJson_no_collateral_preprod from "../test/sampleJSONs/preprod/minting_plutus_asset_with_no_collateral_preprod.json";
-import scriptTxInJson_no_collateral_preprod from "../test/sampleJSONs/preprod/tx_spend_a_script_input_with_no_collateral_preprod.json";
-import noscriptTxIn_and_scriptMintJson_mainnet from "../test/sampleJSONs/mainnet/all_money_goes_back_to_change_address_mainnet.json";
+import noScriptTxInAndScriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/allMoneyGoesBackToChangeAddressPreprod.json";
+import scriptTxInJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/txSpendAScriptInputPreprod.json";
+import scriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/mintingPlutusAssetPreprod.json";
+import noScriptTxInAndScriptMintJson2Preprod from "../test/sampleJSONs/jsonToTxPreprod/sendWithOutputToSpecificAddressPreprod.json";
+import scriptMintJsonNoCollateralPreprod from "../test/sampleJSONs/jsonToTxPreprod/mintingPlutusAssetWithNoCollateralPreprod.json";
+import scriptTxInJsonNoCollateralPreprod from "../test/sampleJSONs/jsonToTxPreprod/txSpendAScriptInputWithNoCollateralPreprod.json";
+import noScriptTxInAndScriptMintJsonMainnet from "../test/sampleJSONs/jsonToTxMainnet/allMoneyGoesBackToChangeAddressMainnet.json";
 
 describe("POST /users/jsontoTx", () => {
   it("should process JSON file with no ScriptTxIn and ScriptSource and return unsignedTx", async () => {
-    const data = noscriptTxIn_and_scriptMintJson_preprod;
+    const data = noScriptTxInAndScriptMintJsonPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -26,12 +26,12 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should process JSON file with ScriptTxIn and collaterals and return unsignedTx", async () => {
-    const data = scriptTxInJson_preprod;
+    const data = scriptTxInJsonPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -42,12 +42,12 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should process JSON file with ScriptMint and collaterals and return unsignedTx 2", async () => {
-    const data = scriptMintJson_preprod;
+    const data = scriptMintJsonPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -58,7 +58,7 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should process JSON file with no ScriptTxIn and ScriptSource and return unsignedTx 2", async () => {
-    const data = noscriptTxIn_and_scriptMintJson2_preprod;
+    const data = noScriptTxInAndScriptMintJson2Preprod;
 
     console.log("Sending request with data:", data);
 
@@ -74,12 +74,12 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should return 500 if file has ScriptTxIn but without collateral", async () => {
-    const data = scriptMintJson_no_collateral_preprod;
+    const data = scriptMintJsonNoCollateralPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -89,12 +89,12 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should return 500 if file has ScriptTxIn but without collateral 2", async () => {
-    const data = scriptTxInJson_no_collateral_preprod;
+    const data = scriptTxInJsonNoCollateralPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -104,12 +104,12 @@ describe("POST /users/jsontoTx", () => {
   });
 
   it("should process JSON file with no ScriptTxIn and ScriptSource - mainnet", async () => {
-    const data = noscriptTxIn_and_scriptMintJson_mainnet;
+    const data = noScriptTxInAndScriptMintJsonMainnet;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/users/jsonToTx")
       .send(data)
       .set("Accept", "application/json");
 

@@ -103,7 +103,44 @@
     }
   ],
   "extraInputs": [],
-  "collaterals": [],
+  "collaterals": [
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "106b69250143418f979a46d67b35ebd523d4a84a584a59faa5c7e14432d5087b",
+        "txIndex": 2,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qzqmkyqw42456y68vuw59z55ua734pzdxgdwlje2le0g25uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq6jz6mj"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "106b69250143418f979a46d67b35ebd523d4a84a584a59faa5c7e14432d5087b",
+        "txIndex": 2,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qzqmkyqw42456y68vuw59z55ua734pzdxgdwlje2le0g25uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq6jz6mj"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "0ed1374f7f642d6fb422b11ed30005e84a1aa78a5baa37c42d5c0451e407e0cd",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "9aef55c0804e824c9c608719291cc31d6784ee0b1b008180e08c595ccb6b88d0",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9"
+      }
+    }
+  ],
   "requiredSignatures": [
     "5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f"
   ],
@@ -120,5 +157,6 @@
     "strategy": "experimental",
     "includeTxFees": true
   },
+  "votes": [],
   "network": "preprod"
 }

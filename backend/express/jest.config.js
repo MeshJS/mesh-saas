@@ -2,9 +2,10 @@
 module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
-  testMatch: ["**/*.test.ts"],
+  testMatch: ["**/*.test.ts", "**/src/*/test.ts"],
   setupFiles: ["<rootDir>/jest.setup.js"], // Add this line
-  // transform: {
-  //   "^.+\\.ts$": "ts-jest",
-  // },
+  transform: {
+    "^.+\\.ts$": "ts-jest",
+  },
+  transformIgnorePatterns: ["/node_modules/"],
 };
