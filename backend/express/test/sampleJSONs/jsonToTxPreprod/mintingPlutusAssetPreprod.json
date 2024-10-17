@@ -1,0 +1,160 @@
+{
+  "inputs": [
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "fe10506156e6a05f6044bbd384444601b83566a0eeed83b6102cf767906e4bef",
+        "txIndex": 1,
+        "amount": [{ "unit": "lovelace", "quantity": "3745871" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "3f59753bc54efbe84bd9734cf33af84f0a61fa1367b6cdfca37e8a07e3bcf410",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "3750000" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "5854181d555e8a95c56dccf9c6d925ad12330fc81a876ccbb446f30015c042c5",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "575665827" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "address": "addr_test1wqh06vyhn9z0s7pt25s75zd73e6l6hpf0zey9myxtmyhe8qn58w75",
+      "amount": [
+        { "unit": "lovelace", "quantity": "10000000" },
+        {
+          "unit": "bbbd00cf403117b837265ed9cbbbae9eef5224213fa51be1b2909eb84d6573685f476966745f43617264",
+          "quantity": "1"
+        }
+      ],
+      "datum": {
+        "type": "Inline",
+        "data": {
+          "type": "Mesh",
+          "content": [
+            "fe10506156e6a05f6044bbd384444601b83566a0eeed83b6102cf767906e4bef",
+            1,
+            "4d6573685f476966745f43617264"
+          ]
+        }
+      }
+    }
+  ],
+  "extraInputs": [
+    {
+      "input": {
+        "outputIndex": 0,
+        "txHash": "5027406cca5620cf332d4c5764bee6c7b785b51d5e85873a6fa33100011e70d8"
+      },
+      "output": {
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+        "amount": [
+          { "unit": "lovelace", "quantity": "1154444880" },
+          {
+            "unit": "d8906ca5c7ba124a0407a32dab37b2c82b13b3dcd9111e42940dcea44d657368546f6b656e",
+            "quantity": "1"
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "outputIndex": 0,
+        "txHash": "3f59753bc54efbe84bd9734cf33af84f0a61fa1367b6cdfca37e8a07e3bcf410"
+      },
+      "output": {
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+        "amount": [{ "unit": "lovelace", "quantity": "3750000" }]
+      }
+    },
+    {
+      "input": {
+        "outputIndex": 0,
+        "txHash": "5854181d555e8a95c56dccf9c6d925ad12330fc81a876ccbb446f30015c042c5"
+      },
+      "output": {
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+        "amount": [{ "unit": "lovelace", "quantity": "575665827" }]
+      }
+    },
+    {
+      "input": {
+        "outputIndex": 0,
+        "txHash": "b3d32c0a49336a2851e4a858fda60383f8420b994f9e3bea6cb8deeb798420e9"
+      },
+      "output": {
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+        "amount": [{ "unit": "lovelace", "quantity": "553239110" }]
+      }
+    },
+    {
+      "input": {
+        "outputIndex": 1,
+        "txHash": "37b1446c1c19f259c8e3f6d9bd0b4e4f3d0c9035fa5edd05c159e6ea0b0fd8fd"
+      },
+      "output": {
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+        "amount": [{ "unit": "lovelace", "quantity": "2294581712" }]
+      }
+    }
+  ],
+  "collaterals": [
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "80fff8d27e8dffec05ac773f22140cf86d8e30a0243e7df6849b74633d79e007",
+        "txIndex": 5,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    }
+  ],
+  "requiredSignatures": [],
+  "referenceInputs": [],
+  "mints": [
+    {
+      "type": "Plutus",
+      "policyId": "bbbd00cf403117b837265ed9cbbbae9eef5224213fa51be1b2909eb8",
+      "assetName": "4d6573685f476966745f43617264",
+      "amount": "1",
+      "scriptSource": {
+        "type": "Provided",
+        "script": {
+          "code": "5901f05901ed0101003332323232323232232225333005323232323253323300b3001300c3754004264646464a66601e600a0022a66602460226ea801c540085854ccc03cc00c00454ccc048c044dd50038a8010b0b18079baa006132323232533301430170021323253330133009301437540162a666026601260286ea8c8cc004004018894ccc0600045300103d87a80001323253330173375e603860326ea80080504cdd2a40006603600497ae0133004004001301c002301a00115333013300700113371e00402229405854ccc04ccdc3800a4002266e3c0080445281bad3014002375c60240022c602a00264a666020600860226ea800452f5bded8c026eacc054c048dd500099198008009bab3015301630163016301600322533301400114c103d87a80001323232325333015337220140042a66602a66e3c0280084cdd2a4000660326e980052f5c02980103d87a80001330060060033756602c0066eb8c050008c060008c058004dd6180980098079baa007370e90011bae3010300d37540046e1d200016300e300f002300d001300d002300b0013007375400229309b2b1bae0015734aae7555cf2ab9f5740ae855d12610f4e4d6573685f476966745f43617264004c0127d8799f5820fe10506156e6a05f6044bbd384444601b83566a0eeed83b6102cf767906e4bef01ff0001",
+          "version": "V3"
+        }
+      },
+      "redeemer": {
+        "data": {
+          "type": "Mesh",
+          "content": { "alternative": 0, "fields": [] }
+        },
+        "exUnits": { "mem": 7000000, "steps": 3000000000 }
+      }
+    }
+  ],
+  "changeAddress": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+  "metadata": [],
+  "validityRange": {},
+  "certificates": [],
+  "withdrawals": [],
+  "signingKey": [],
+  "selectionConfig": {
+    "threshold": "5000000",
+    "strategy": "experimental",
+    "includeTxFees": true
+  },
+  "votes": [],
+  "network": "preprod"
+}

@@ -1,0 +1,41 @@
+{
+  "inputs": [
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "e93177a68356dc4bfdec2ec8ac48efe4c43c2d8a5fa8a9ebbc4437943c695438",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "2833223" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "fb9324c5461693f729b0a7fdab1646a79b8f439b50dc9bc85458d3ee1ca2b40b",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "2306918390" }],
+        "address": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w"
+      }
+    }
+  ],
+  "outputs": [],
+  "extraInputs": [],
+  "collaterals": [],
+  "requiredSignatures": [],
+  "referenceInputs": [],
+  "mints": [],
+  "changeAddress": "addr_test1qr3a9rrclgf9rx90lmll2qnfzfwgrw35ukvgjrk36pmlzu0jemqwylc286744g0tnqkrvu0dkl8r48k0upkfmg7mncpqf0672w",
+  "metadata": [],
+  "validityRange": {},
+  "certificates": [],
+  "withdrawals": [],
+  "signingKey": [],
+  "selectionConfig": {
+    "threshold": "0",
+    "strategy": "experimental",
+    "includeTxFees": true
+  },
+  "votes": [],
+  "network": "preprod"
+}
