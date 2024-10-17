@@ -10,26 +10,26 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://ansonsidan:ZwtFwm_3b4LQEaw9p-3a@localhost:5432/mesh_saas_database"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id                      Int       @id @default(autoincrement())
-  wallet_address          String  
-  controlled_lovelace     BigInt
-  current_stake_pool      String
-  current_delegated_drep  String
-  created_at              DateTime
-  updated_at              DateTime  @updatedAt
-  hostedPrivateKey        HostedPrivateKey?
+  id                     Int               @id @default(autoincrement())
+  wallet_address         String
+  controlled_lovelace    BigInt
+  current_stake_pool     String
+  current_delegated_drep String
+  created_at             DateTime
+  updated_at             DateTime          @updatedAt
+  hostedPrivateKey       HostedPrivateKey?
 }
 
 model HostedPrivateKey {
-  id                      Int       @id @default(autoincrement())
-  userId                  Int       @unique
-  user                    User      @relation(fields: [userId], references: [id])
-  password_hash           String 
-  encrypted_private_key   String
-  created_at              DateTime
-  updated_at              DateTime  @updatedAt
+  id                    Int      @id @default(autoincrement())
+  userId                Int      @unique
+  user                  User     @relation(fields: [userId], references: [id])
+  password_hash         String
+  encrypted_private_key String
+  created_at            DateTime
+  updated_at            DateTime @updatedAt
 }
