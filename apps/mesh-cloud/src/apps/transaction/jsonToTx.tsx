@@ -212,17 +212,19 @@ export default function JsonToTx() {
           /> */}
         </div>
         {error && (
-          <Alert>
+          <>
             <AlertTitle>API Error</AlertTitle>
-            <AlertDescription className="break-all">
-              <code>{error}</code>
-            </AlertDescription>
-          </Alert>
+            <Alert>
+              <AlertDescription className="break-all">
+                <code>{error}</code>
+              </AlertDescription>
+            </Alert>
+          </>
         )}
 
         {success && (
           <Alert>
-            <AlertTitle>API Result</AlertTitle>
+            <AlertTitle>API Response</AlertTitle>
             <AlertDescription className="break-all">
               <code>{"UnsignedTx: " + success}</code>
             </AlertDescription>
