@@ -4,30 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// const projectID = process.env.BLOCKFROST_PROJECT_ID!;
-
-// const blockchainProvider = new BlockfrostProvider(
-//   // process.env.BLOCKFROST_API_KEY_PREPROD!,
-//   process.env.BLOCKFROST_API_KEY_MAINNE!,
-// );
-
-// const txBuilder = new MeshTxBuilder({
-//   fetcher: blockchainProvider,
-//   evaluator: blockchainProvider,
-// });
-
-// export const jsontoTx = async (req: Request, res: Response) => {
-//   const meshTxBody = req.body;
-
-//   try {
-//     const unsignedTx = await txBuilder.completeSync(meshTxBody);
-//     return res.json({ unsignedTx });
-//   } catch (error) {
-//     return res.status(500).json({ error: error.message });
-//   }
-// };
-
-export const jsontoTx = async (req: Request, res: Response) => {
+export const jsonToTx = async (req: Request, res: Response) => {
   const meshTxBody = req.body;
   const network = meshTxBody.network;
 

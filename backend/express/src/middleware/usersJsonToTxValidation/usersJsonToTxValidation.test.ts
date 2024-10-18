@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { validateParam } from "./users.jsontoTx.middleware";
+import { validateParam } from "./usersJsonToTxValidation";
 import noscriptTxIn_and_scriptMintJson_preprod from "../../../test/sampleJSONs/preprod/all_money_goes_back_to_change_address_preprod.json";
 import noscriptTxIn_and_scriptMintJson2_preprod from "../../../test/sampleJSONs/preprod/send_with_output_to_specific_address_preprod.json";
 import scriptTxInJson_preprod from "../../../test/sampleJSONs/preprod/tx_spend_a_script_input_preprod.json";

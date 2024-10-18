@@ -41,5 +41,6 @@
     "strategy": "experimental",
     "includeTxFees": true
   },
+  "votes": [],
   "network": "mainnet"
 }

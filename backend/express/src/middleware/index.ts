@@ -1,1 +1,1 @@
-export * as exampleTx from "./users.jsontoTx.validation";
+export * as exampleTx from "./usersJsonToTxValidation";

@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import jsontoTxRouter from "./routes/users.jsontoTx.route";
+import jsonToTxRouter from "./routes/usersJsonToTxRoute";
+import meshUtilitiesRouter from "./routes/usersMeshUtilitiesRoute";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 const swaggerSpec = require("../swaggerConfig");
@@ -16,7 +17,9 @@ app.use(cors());
 
 console.log("Setting up routes...");
 
-app.use("/users/jsontoTx", jsontoTxRouter);
+app.use("/users/jsonToTx", jsonToTxRouter);
+
+app.use("/users/meshUtilities", meshUtilitiesRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

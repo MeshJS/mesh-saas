@@ -1,12 +1,12 @@
 import express from "express";
-import { jsontoTxmiddleware } from "../middleware/users.jsontoTx.validation";
-import { jsontoTxcontroller } from "../controllers/users.jsontoTx.controller";
+import { jsontoTxMiddleware } from "../middleware/usersJsonToTxValidation";
+import { jsontoTxController } from "../controllers/usersJsonToTxController";
 
-const jsontoTxrouter = express.Router();
+const jsonToTxrouter = express.Router();
 
 /**
  * @swagger
- * /users/jsontoTx:
+ * /users/jsonToTx:
  *   post:
  *     summary: Convert JSON to Unsigned Transaction for Cardano Blockchain
  *     description: Converts a JSON file to a transaction.
@@ -17,7 +17,10 @@ const jsontoTxrouter = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               // Define your request body schema here
+ *                // Define your request body schema here
+ *         schema:
+ *           type: integer
+ *           example: 1
  *     responses:
  *       200:
  *         description: Successfully converted JSON to transaction
@@ -31,16 +34,10 @@ const jsontoTxrouter = express.Router();
  *       400:
  *         description: Bad request
  */
-jsontoTxrouter.post(
+jsonToTxrouter.post(
   "/",
-  jsontoTxmiddleware.validateParam,
-  jsontoTxcontroller.jsontoTx,
+  jsontoTxMiddleware.validateParam,
+  jsontoTxController.jsonToTx,
 );
 
-// jsontoTxrouter.post(
-//   "/submit",
-//   submitTx.validateParam,
-//   exampleTxController.submitTx,
-// );
-
-export default jsontoTxrouter;
+export default jsonToTxrouter;
