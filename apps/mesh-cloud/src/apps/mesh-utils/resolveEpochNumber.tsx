@@ -1,3 +1,4 @@
+import { SelectNetwork } from "@/apps/dev/transaction";
 import CardSection from "@/components/card-section";
 import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
@@ -15,10 +16,12 @@ export default function ResolveEpochNumber() {
 
   const [loading, setLoading] = useState(false);
 
+  const [network, setNetwork] = useState<"mainnet" | "preprod" | "preview">(
+    "preprod",
+  );
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
-  const network = "preprod";
 
   const runDemo = async () => {
     setLoading(true);
@@ -63,6 +66,7 @@ export default function ResolveEpochNumber() {
         }
       >
         <div className="grid gap-3">
+          <SelectNetwork setValue={setNetwork} placeholder="Preprod" />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

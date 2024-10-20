@@ -3,6 +3,8 @@ import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
@@ -15,17 +17,18 @@ export default function ResolveStakeKeyHash() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState(
+    "stake_test1uzw5mnt7g4xjgdqkfa80hrk7kdvds6sa4k0vvgjvlj7w8eskffj2n",
+  );
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const runDemo = async () => {
     setLoading(true);
     try {
-      const address =
-        "stake_test1uzw5mnt7g4xjgdqkfa80hrk7kdvds6sa4k0vvgjvlj7w8eskffj2n";
-
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveStakeKeyHash/${address}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveStakeKeyHash/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -39,7 +42,7 @@ export default function ResolveStakeKeyHash() {
 
   let codeSnippet = "";
   codeSnippet += `const address =\n`;
-  codeSnippet += `  "stake_test1uzw5mnt7g4xjgdqkfa80hrk7kdvds6sa4k0vvgjvlj7w8eskffj2n";\n`;
+  codeSnippet += `  "${input}";\n`;
   codeSnippet += `\n`;
   codeSnippet += `const res = await axios.get(\n`;
   codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveStakeAddress/" + address,\n`;
@@ -67,6 +70,16 @@ export default function ResolveStakeKeyHash() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="stakeAddress">Stake Address</Label>
+          <Input
+            id="stakeAddress"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

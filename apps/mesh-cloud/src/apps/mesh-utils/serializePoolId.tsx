@@ -3,6 +3,8 @@ import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { demoPubKeyHash } from "@/data/cardano";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
@@ -16,6 +18,8 @@ export default function SerializePoolId() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState(demoPubKeyHash);
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -23,7 +27,7 @@ export default function SerializePoolId() {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/serializers/serializePoolId/${demoPubKeyHash}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/serializers/serializePoolId/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -37,7 +41,7 @@ export default function SerializePoolId() {
 
   let codeSnippet = "";
   codeSnippet += `const res = await axios.get(\n`;
-  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/serializers/serializePoolId/${demoPubKeyHash}",\n`;
+  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/serializers/serializePoolId/${input}",\n`;
   codeSnippet += `);\n`;
 
   return (
@@ -62,6 +66,16 @@ export default function SerializePoolId() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="poolId">Pool Id</Label>
+          <Input
+            id="poolId"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

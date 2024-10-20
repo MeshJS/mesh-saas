@@ -23,9 +23,11 @@ import { getProvider } from "@/lib/provider";
 export function SelectNetwork({
   setValue,
   placeholder,
+  simplified = false,
 }: {
   setValue: Dispatch<SetStateAction<any>>;
   placeholder?: string;
+  simplified?: boolean;
 }) {
   return (
     <Select onValueChange={setValue}>
@@ -37,8 +39,14 @@ export function SelectNetwork({
       <SelectContent>
         <SelectGroup>
           <SelectItem value="mainnet">Mainnet</SelectItem>
-          <SelectItem value="preprod">Preprod</SelectItem>
-          <SelectItem value="preview">Preview</SelectItem>
+          {simplified ? (
+            <SelectItem value="testnet">Testnet</SelectItem>
+          ) : (
+            <>
+              <SelectItem value="preprod">Preprod</SelectItem>
+              <SelectItem value="preview">Preview</SelectItem>
+            </>
+          )}
         </SelectGroup>
       </SelectContent>
     </Select>

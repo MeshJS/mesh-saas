@@ -4,6 +4,8 @@ import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { useState } from "react";
 import MeshUtilsLayout from "./layout";
@@ -15,17 +17,18 @@ export default function DeserializeDatum() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState(
+    "167a4a048d87fcee0425ed200615ff2356f472c6413472c6106b8c5da52e3fd0",
+  );
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
-  const cbor =
-    "167a4a048d87fcee0425ed200615ff2356f472c6413472c6106b8c5da52e3fd0";
 
   const runDemo = async () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeDatum/${cbor}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeDatum/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -38,8 +41,11 @@ export default function DeserializeDatum() {
   };
 
   let codeSnippet = "";
+  codeSnippet += `const cbor =\n`;
+  codeSnippet += `  "${input}";\n`;
+  codeSnippet += `\n`;
   codeSnippet += `const res = await axios.get(\n`;
-  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeDatum/${cbor}",\n`;
+  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeDatum/" + cbor,\n`;
   codeSnippet += `);\n`;
 
   return (
@@ -64,6 +70,16 @@ export default function DeserializeDatum() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="cbor">Cbor</Label>
+          <Input
+            id="cbor"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

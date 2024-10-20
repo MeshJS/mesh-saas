@@ -3,6 +3,8 @@ import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
@@ -15,16 +17,18 @@ export default function DeserializePoolId() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState(
+    "pool107k26e3wrqxwghju2py40ngngx2qcu48ppeg7lk0cm35jl2aenx",
+  );
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
-  const poolId = "pool107k26e3wrqxwghju2py40ngngx2qcu48ppeg7lk0cm35jl2aenx";
 
   const runDemo = async () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializePoolId/${poolId}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializePoolId/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -37,8 +41,11 @@ export default function DeserializePoolId() {
   };
 
   let codeSnippet = "";
+  codeSnippet += `const poolId =\n`;
+  codeSnippet += `  "${input}";\n`;
+  codeSnippet += `\n`;
   codeSnippet += `const res = await axios.get(\n`;
-  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializePoolId/${poolId}",\n`;
+  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializePoolId/" + poolId,\n`;
   codeSnippet += `);\n`;
 
   return (
@@ -63,6 +70,16 @@ export default function DeserializePoolId() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="poolId">Pool Id</Label>
+          <Input
+            id="poolId"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

@@ -3,6 +3,8 @@ import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
@@ -15,17 +17,18 @@ export default function DeserializeAddress() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState(
+    "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9",
+  );
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
-
-  const address =
-    "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9";
 
   const runDemo = async () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeAddress/${address}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeAddress/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -38,8 +41,11 @@ export default function DeserializeAddress() {
   };
 
   let codeSnippet = "";
+  codeSnippet += `const address =\n`;
+  codeSnippet += `  "${input}";\n`;
+  codeSnippet += `\n`;
   codeSnippet += `const res = await axios.get(\n`;
-  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeAddress/${address}",\n`;
+  codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/deserializers/deserializeAddress/" + address,\n`;
   codeSnippet += `);\n`;
 
   return (
@@ -64,6 +70,16 @@ export default function DeserializeAddress() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="address">Address</Label>
+          <Input
+            id="address"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

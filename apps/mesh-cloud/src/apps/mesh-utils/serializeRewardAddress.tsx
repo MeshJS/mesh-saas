@@ -7,7 +7,11 @@ import { demoPubKeyHash } from "@/data/cardano";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
+import { SelectNetwork } from "@/apps/dev/transaction";
+
 import MeshUtilsLayout from "./layout";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const EXPRESS_BACKEND_URL = process.env.NEXT_PUBLIC_EXPRESS_BACKEND_URL!;
 
@@ -16,6 +20,9 @@ export default function SerializeRewardAddress() {
 
   const [loading, setLoading] = useState(false);
 
+  const [network, setNetwork] = useState<"mainnet" | "testnet">("testnet");
+  const [input, setInput] = useState(demoPubKeyHash);
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
@@ -23,9 +30,9 @@ export default function SerializeRewardAddress() {
     setLoading(true);
     try {
       const requestBody = {
-        ScriptHashOrKeyHash: demoPubKeyHash,
+        ScriptHashOrKeyHash: input,
         Is_Script_Hash: true,
-        Network: "testnet",
+        Network: network,
       };
 
       const res = await axios.post(
@@ -44,9 +51,9 @@ export default function SerializeRewardAddress() {
 
   let codeSnippet = "";
   codeSnippet += `const requestBody = {\n`;
-  codeSnippet += `  ScriptHashOrKeyHash: "${demoPubKeyHash}",\n`;
+  codeSnippet += `  ScriptHashOrKeyHash: "${input}",\n`;
   codeSnippet += `  Is_Script_Hash: true,\n`;
-  codeSnippet += `  Network: "testnet",\n`;
+  codeSnippet += `  Network: "${network}",\n`;
   codeSnippet += `};\n`;
   codeSnippet += `\n`;
   codeSnippet += `const res = await axios.post(\n`;
@@ -76,6 +83,22 @@ export default function SerializeRewardAddress() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="pubKeyHash">Public Key Hash</Label>
+          <Input
+            id="pubKeyHash"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
+          <Label htmlFor="pubKeyHash">Select Network</Label>
+          <SelectNetwork
+            setValue={setNetwork}
+            placeholder="Testnet"
+            simplified
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (

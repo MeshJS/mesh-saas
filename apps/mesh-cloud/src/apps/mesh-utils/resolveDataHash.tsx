@@ -3,6 +3,8 @@ import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
@@ -15,16 +17,16 @@ export default function ResolveDataHash() {
 
   const [loading, setLoading] = useState(false);
 
+  const [input, setInput] = useState("supersecretdatum");
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const runDemo = async () => {
     setLoading(true);
     try {
-      const datum = "supersecretdatum";
-
       const res = await axios.get(
-        `${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveDataHash/${datum}`,
+        `${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveDataHash/${input}`,
       );
       const data = res.data;
       setSuccess(JSON.stringify(data, null, 2));
@@ -37,7 +39,7 @@ export default function ResolveDataHash() {
   };
 
   let codeSnippet = "";
-  codeSnippet += `const datum = "supersecretdatum";\n`;
+  codeSnippet += `const datum = "${input}";\n`;
   codeSnippet += `\n`;
   codeSnippet += `const res = await axios.get(\n`;
   codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolveDataHash/" + datum,\n`;
@@ -65,6 +67,16 @@ export default function ResolveDataHash() {
         }
       >
         <div className="grid gap-3">
+          <Label htmlFor="datum">Datum</Label>
+          <Input
+            id="datum"
+            placeholder={input}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+            disabled={loading}
+          />
           <Codeblock data={codeSnippet} language="javascript" />
         </div>
         {error && (
