@@ -7,4 +7,12 @@ export const NAV = [
     label: "DevTools",
     href: "/dev",
   },
+  {
+    label: "Transaction",
+    href: "/transaction",
+  },
+  {
+    label: "Mesh Utils",
+    href: "/mesh-utils",
+  },
 ];

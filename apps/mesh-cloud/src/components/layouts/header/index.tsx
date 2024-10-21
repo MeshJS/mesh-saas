@@ -1,19 +1,71 @@
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { useValidateStaking } from "@/hooks/useValidateStaking";
+import { CardanoWallet } from "@meshsdk/react";
+import { CheckCircledIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import Nav from "./nav";
 
 export default function Header() {
+  const {
+    rewardAddress,
+    isStaked,
+    isDRepDelegated,
+    delegateDRep,
+    stakeToPool,
+  } = useValidateStaking();
+
   return (
-    <header className="bg-background sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-50">
+    <header className="sticky top-0 z-50 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <Nav />
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
+          <div className="relative flex items-center gap-4">
             {/* <Search className="text-muted-foreground absolute left-2.5 top-2.5 h-4 w-4" />
             <Input
               type="search"
               placeholder="Search products..."
               className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
             /> */}
-            {/* <CardanoWallet /> */}
+
+            {rewardAddress && (
+              <>
+                {isStaked ? (
+                  <Label className="flex items-center gap-2">
+                    <CheckCircledIcon className="h-6 w-6" />
+                    <p>Staked</p>
+                  </Label>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={stakeToPool}
+                    variant={"ghost"}
+                    className="flex items-center gap-2"
+                  >
+                    <CrossCircledIcon className="h-6 w-6" />
+                    <p>Not Staked</p>
+                  </Button>
+                )}
+
+                {isDRepDelegated ? (
+                  <Label className="flex items-center gap-2">
+                    <CheckCircledIcon className="h-6 w-6" />
+                    Delegated
+                  </Label>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={delegateDRep}
+                    variant={"ghost"}
+                    className="flex items-center gap-2"
+                  >
+                    <CrossCircledIcon className="h-6 w-6" />
+                    <p>Vote Not Delegated</p>
+                  </Button>
+                )}
+              </>
+            )}
+
+            <CardanoWallet isDark={true} />
           </div>
         </form>
       </div>

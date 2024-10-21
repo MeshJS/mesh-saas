@@ -1,0 +1,161 @@
+{
+  "inputs": [
+    {
+      "type": "Script",
+      "txIn": {
+        "txHash": "729e3ffab83e987d190a18fc513ed17dfe67d2b0f000cbef7e445828c93f3c6a",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "15000000" }],
+        "address": "addr_test1wrwu7eknuzmeasg3mpugfy4x5whd98hn49zuvl5fsms4lssck8agw"
+      },
+      "scriptTxIn": {
+        "scriptSource": {
+          "type": "Provided",
+          "script": {
+            "code": "5904265904230100003323232323232322322322322533300832323232323232323232323253330143375e6e9cccc8c0040048894ccc06800440084ccc00c00cc8c8cc004004010894ccc07400452f5c026464a66603866ebc00801440044cc080008cc010010004c084008c07c004c070004c074004cc8c004004894ccc06400452f5c026466036002660060066600e603a004466603066ebc00400928251301b001323300100100722533301900114bd7009980d1806180c1baa300c301837546036002660040046038002016981018000100114a0646600200200444a66603000229444c94ccc058cdc39bad301b00233005533301900414c0103d87a80001300e3301a301b0044bd70240002660060060022940c06c004c8cc004004028894ccc05c00452f5c02660306ea0c8c8c8c8c8c94ccc068cdc424000002266e04008cdc08009802005880119980119804806919baf3010301c3754602060386ea8c014c070dd5000803240004466e00004c014dd59803180e9baa3006301d375400466600266010014466ebcc03cc06cdd51807980d9baa0010054800088cdc000098021bab3005301c3754004444646600200200844a66603e0022008266006604200266004004604400246600c64a66603066e1d200230193754002298103d87a8000132330010013756603c60366ea8008894ccc074004530103d87a8000132323232533301e33722911000021533301e3371e9101000021301633022375000297ae014c0103d87a8000133006006003375a603e0066eb8c074008c084008c07c004c8cc004004008894ccc0700045300103d87a8000132323232533301d33722911000021533301d3371e9101000021301533021374c00297ae014c0103d87a80001330060060033756603c0066eb8c070008c080008c07800520002301b301c001301900133002002301a0012253330133370e9001180a1baa00210011375a6030602a6ea800888c8cc00400400c894ccc05c00452f5c026464a66602c600a00426603400466008008002266008008002603600460320026eacc050c054008dd61809800980998098011bac3011001300d37546002601a6ea80108c040004c8cc004004020894ccc03800452f5c026601e60066601e602000297ae0330020023011001374a90000a4c26caca66600c66e1d20003007375400226464a666016601c0042930b1bae300c001300837540022ca66600866e1d20003005375400226464a66601260180042930b1bae300a001300637540022c6eb00055cd2ab9d5573caae7d5d02ba157449817a9f581c5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f581c5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f581c0134c14c5d553056eb0574f7374891bb27d2482b048f6b83d3a1584d581c18a05c0d69b693f822b1153b34aedd494a14bbb874adf2bd5f210a35ff0001",
+            "version": "V2"
+          }
+        },
+        "redeemer": {
+          "data": {
+            "type": "Mesh",
+            "content": { "alternative": 0, "fields": ["Hello, World!"] }
+          },
+          "exUnits": { "mem": 7000000, "steps": 3000000000 }
+        },
+        "datumSource": {
+          "type": "Provided",
+          "data": {
+            "type": "Mesh",
+            "content": {
+              "alternative": 0,
+              "fields": [
+                "5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Script",
+      "txIn": {
+        "txHash": "effa520cf7a2ca6232be2bd39c048607dd7380d5c29ec234dd39991299919ecb",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "15000000" }],
+        "address": "addr_test1wrwu7eknuzmeasg3mpugfy4x5whd98hn49zuvl5fsms4lssck8agw"
+      },
+      "scriptTxIn": {
+        "scriptSource": {
+          "type": "Provided",
+          "script": {
+            "code": "5904265904230100003323232323232322322322322533300832323232323232323232323253330143375e6e9cccc8c0040048894ccc06800440084ccc00c00cc8c8cc004004010894ccc07400452f5c026464a66603866ebc00801440044cc080008cc010010004c084008c07c004c070004c074004cc8c004004894ccc06400452f5c026466036002660060066600e603a004466603066ebc00400928251301b001323300100100722533301900114bd7009980d1806180c1baa300c301837546036002660040046038002016981018000100114a0646600200200444a66603000229444c94ccc058cdc39bad301b00233005533301900414c0103d87a80001300e3301a301b0044bd70240002660060060022940c06c004c8cc004004028894ccc05c00452f5c02660306ea0c8c8c8c8c8c94ccc068cdc424000002266e04008cdc08009802005880119980119804806919baf3010301c3754602060386ea8c014c070dd5000803240004466e00004c014dd59803180e9baa3006301d375400466600266010014466ebcc03cc06cdd51807980d9baa0010054800088cdc000098021bab3005301c3754004444646600200200844a66603e0022008266006604200266004004604400246600c64a66603066e1d200230193754002298103d87a8000132330010013756603c60366ea8008894ccc074004530103d87a8000132323232533301e33722911000021533301e3371e9101000021301633022375000297ae014c0103d87a8000133006006003375a603e0066eb8c074008c084008c07c004c8cc004004008894ccc0700045300103d87a8000132323232533301d33722911000021533301d3371e9101000021301533021374c00297ae014c0103d87a80001330060060033756603c0066eb8c070008c080008c07800520002301b301c001301900133002002301a0012253330133370e9001180a1baa00210011375a6030602a6ea800888c8cc00400400c894ccc05c00452f5c026464a66602c600a00426603400466008008002266008008002603600460320026eacc050c054008dd61809800980998098011bac3011001300d37546002601a6ea80108c040004c8cc004004020894ccc03800452f5c026601e60066601e602000297ae0330020023011001374a90000a4c26caca66600c66e1d20003007375400226464a666016601c0042930b1bae300c001300837540022ca66600866e1d20003005375400226464a66601260180042930b1bae300a001300637540022c6eb00055cd2ab9d5573caae7d5d02ba157449817a9f581c5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f581c5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f581c0134c14c5d553056eb0574f7374891bb27d2482b048f6b83d3a1584d581c18a05c0d69b693f822b1153b34aedd494a14bbb874adf2bd5f210a35ff0001",
+            "version": "V2"
+          }
+        },
+        "redeemer": {
+          "data": {
+            "type": "Mesh",
+            "content": { "alternative": 0, "fields": ["Hello, World!"] }
+          },
+          "exUnits": { "mem": 7000000, "steps": 3000000000 }
+        },
+        "datumSource": {
+          "type": "Provided",
+          "data": {
+            "type": "Mesh",
+            "content": {
+              "alternative": 0,
+              "fields": [
+                "5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "26a5656a507a20e30fc668d28ddb56ab8166c36a1121debb6e8c34465d3a3027",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "24833223" }],
+        "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9",
+      "amount": [{ "unit": "lovelace", "quantity": "7500000" }]
+    },
+    {
+      "address": "addr_test1vpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0c7e4cxr",
+      "amount": [{ "unit": "lovelace", "quantity": "7500000" }]
+    },
+    {
+      "address": "addr_test1vqqnfs2vt42nq4htq460wd6gjxaj05jg9vzg76ur6ws4sngs55pwr",
+      "amount": [{ "unit": "lovelace", "quantity": "7500000" }]
+    },
+    {
+      "address": "addr_test1vqv2qhqddxmf87pzky2nkd9wm4y5599mhp62mu4atuss5dgdja5pw",
+      "amount": [{ "unit": "lovelace", "quantity": "7500000" }]
+    }
+  ],
+  "extraInputs": [],
+  "collaterals": [
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "106b69250143418f979a46d67b35ebd523d4a84a584a59faa5c7e14432d5087b",
+        "txIndex": 2,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qzqmkyqw42456y68vuw59z55ua734pzdxgdwlje2le0g25uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq6jz6mj"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "106b69250143418f979a46d67b35ebd523d4a84a584a59faa5c7e14432d5087b",
+        "txIndex": 2,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qzqmkyqw42456y68vuw59z55ua734pzdxgdwlje2le0g25uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq6jz6mj"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "0ed1374f7f642d6fb422b11ed30005e84a1aa78a5baa37c42d5c0451e407e0cd",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9"
+      }
+    },
+    {
+      "type": "PubKey",
+      "txIn": {
+        "txHash": "9aef55c0804e824c9c608719291cc31d6784ee0b1b008180e08c595ccb6b88d0",
+        "txIndex": 0,
+        "amount": [{ "unit": "lovelace", "quantity": "5000000" }],
+        "address": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9"
+      }
+    }
+  ],
+  "requiredSignatures": [
+    "5867c3b8e27840f556ac268b781578b14c5661fc63ee720dbeab663f"
+  ],
+  "referenceInputs": [],
+  "mints": [],
+  "changeAddress": "addr_test1qpvx0sacufuypa2k4sngk7q40zc5c4npl337uusdh64kv0uafhxhu32dys6pvn6wlw8dav6cmp4pmtv7cc3yel9uu0nq93swx9",
+  "metadata": [],
+  "validityRange": {},
+  "certificates": [],
+  "withdrawals": [],
+  "signingKey": [],
+  "selectionConfig": {
+    "threshold": "5000000",
+    "strategy": "experimental",
+    "includeTxFees": true
+  },
+  "network": "preprod"
+}
