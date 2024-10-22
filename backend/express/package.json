@@ -1,0 +1,56 @@
+{
+  "name": "mesh-cloud-backend-server",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "build:backend": "tsc",
+    "start": "npm run build:backend && node .build/src/index.js",
+    "test:endpoints": "PORT=3001 jest --runInBand --testMatch='**/controller.test.ts' --forceExit",
+    "test:validation": "PORT=3002 jest --runInBand --testMatch='**/validation.test.ts' --forceExit",
+    "test:businessLogic": "PORT=3003 jest --runInBand --testMatch='**/routes.test.ts' --forceExit",
+    "test": "concurrently \"yarn test:endpoints\" \"yarn test:validation\" \"yarn test:businessLogic\"",
+    "generate": "prisma generate --schema=./backend/express/prisma/schema.prisma",
+    "db:format": "prisma format",
+    "db:generate": "prisma migrate dev",
+    "db:migrate": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:update": "prisma format && prisma db push && prisma generate"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  },
+  "dependencies": {
+    "@meshsdk/contract": "1.7.8",
+    "@meshsdk/core": "1.7.8",
+    "@prisma/client": "^5.14.0",
+    "axios": "^1.5.0",
+    "class-validator": "^0.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "json-schema-to-ts": "^2.9.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^20.4.2",
+    "@types/supertest": "^2.0.12",
+    "concurrently": "^8.2.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "prisma": "^5.14.0",
+    "supertest": "^6.3.3",
+    "test-node": "^0.0.2",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "turbo": "^2.1.3",
+    "typescript": "^5.6.3"
+  }
+}
