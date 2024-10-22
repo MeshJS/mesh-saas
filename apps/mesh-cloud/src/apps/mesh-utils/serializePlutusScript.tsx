@@ -43,7 +43,7 @@ export default function SerializePlutusScript() {
 
   let codeSnippet = "";
   codeSnippet += `const requestBody = {\n`;
-  codeSnippet += `  code: demoPlutusAlwaysSucceedScript,\n`;
+  codeSnippet += `  code: "${demoPlutusAlwaysSucceedScript}", // Plutus script that always succeeds \n`;
   codeSnippet += `  version: "V2",\n`;
   codeSnippet += `};\n`;
   codeSnippet += `\n`;
