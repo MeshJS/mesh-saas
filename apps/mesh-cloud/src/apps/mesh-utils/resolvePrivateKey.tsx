@@ -37,6 +37,7 @@ export default function ResolvePrivateKey() {
   };
 
   let codeSnippet = "";
+  codeSnippet += `const demoMnemonic = ${JSON.stringify(demoMnemonic)}\n\n`;
   codeSnippet += `const res = await axios.post(\n`;
   codeSnippet += `  "${EXPRESS_BACKEND_URL}users/meshUtilities/resolvers/resolvePrivateKey",\n`;
   codeSnippet += `  demoMnemonic,\n`;

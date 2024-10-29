@@ -91,7 +91,6 @@ export default function SerializeNativeScript() {
             <Button onClick={() => runDemo()} disabled={loading}>
               Run API
             </Button>
-
             <Button
               onClick={() => runDemo()}
               disabled={!isStaked || !isDRepDelegated}

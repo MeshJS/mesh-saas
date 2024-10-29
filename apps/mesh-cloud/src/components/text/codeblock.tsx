@@ -33,7 +33,7 @@ export default function Codeblock({
   }
 
   return (
-    <div className="not-format relative mb-2 max-h-96 min-h-8 overflow-auto">
+    <div className="not-format relative mb-2 max-h-[480px] min-h-8 overflow-auto">
       <button
         type="button"
         className="absolute right-1 top-1 rounded-lg border border-gray-300 bg-white px-1 py-1 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
