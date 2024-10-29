@@ -3,9 +3,9 @@ import {
   BrowserWallet,
   keepRelevant,
   MeshTxBuilder,
-  Quantity,
+  type Quantity,
   Transaction,
-  Unit,
+  type Unit,
 } from "@meshsdk/core";
 import { useWallet } from "@meshsdk/react";
 import { useCallback, useEffect, useState } from "react";
