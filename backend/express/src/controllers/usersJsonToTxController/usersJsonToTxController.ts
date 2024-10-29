@@ -27,7 +27,7 @@ export const jsonToTx = async (req: Request, res: Response) => {
   });
 
   try {
-    const unsignedTx = await txBuilder.completeSync(meshTxBody);
+    const unsignedTx = await txBuilder.complete(meshTxBody);
     return res.json({ unsignedTx });
   } catch (error) {
     return res.status(500).json({ error: error.message });

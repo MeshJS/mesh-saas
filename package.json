@@ -22,8 +22,5 @@
   "workspaces": [
     "apps/*",
     "backend/*"
-  ],
-  "dependencies": {
-    "@radix-ui/react-select": "^2.1.2"
-  }
+  ]
 }

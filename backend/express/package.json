@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "nodemon --watch",
     "build:backend": "tsc",
     "start": "npm run build:backend && node .build/src/index.js",
     "test:endpoints": "PORT=3001 jest --runInBand --testMatch='**/controller.test.ts' --forceExit",
@@ -23,8 +23,8 @@
     "schema": "./prisma/schema.prisma"
   },
   "dependencies": {
-    "@meshsdk/contract": "1.7.8",
-    "@meshsdk/core": "1.7.8",
+    "@meshsdk/contract": "1.7.10",
+    "@meshsdk/core": "1.7.10",
     "@prisma/client": "^5.14.0",
     "axios": "^1.5.0",
     "class-validator": "^0.14.0",

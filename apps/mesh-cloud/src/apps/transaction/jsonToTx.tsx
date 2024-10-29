@@ -150,6 +150,7 @@ export default function JsonToTx() {
 
   const runAPI = async () => {
     setLoading(true);
+    setError("");
     try {
       const res = await axios.post(`${EXPRESS_BACKEND_URL}users/jsontoTx`, {
         ...JSON.parse(input),
@@ -163,6 +164,11 @@ export default function JsonToTx() {
       setLoading(false);
     }
   };
+
+  let codeSnippet = "";
+  codeSnippet+=`const res = await axios.post("${EXPRESS_BACKEND_URL}users/jsontoTx", {\n`;
+  codeSnippet+=`  ...meshTxBody,\n`;
+  codeSnippet+=`});\n`;
 
   return (
     <TransactionLayout>
@@ -203,6 +209,9 @@ export default function JsonToTx() {
           />
 
           <Codeblock data={JSON.parse(input)} isJson language="javascript" />
+
+          <Codeblock data={codeSnippet} language="javascript" />
+
           {/* <Textarea
             id="input"
             className="min-h-[240px]"
