@@ -69,7 +69,7 @@ export default function Header() {
               <>
                 {isStaked ? (
                   <Label className="flex items-center gap-2">
-                    <CheckCircledIcon className="h-6 w-6" />
+                    {isStaked && <SidanLogo size={24} />}
                     <p>Staked</p>
                   </Label>
                 ) : (
@@ -86,7 +86,11 @@ export default function Header() {
 
                 {isDRepDelegated ? (
                   <Label className="flex items-center gap-2">
-                    <CheckCircledIcon className="h-6 w-6" />
+                    {isDRepDelegated == "mesh" ? (
+                      <Logo fill={"black"} size={24} />
+                    ) : (
+                      <SidanLogo size={24} />
+                    )}
                     Delegated
                   </Label>
                 ) : (
