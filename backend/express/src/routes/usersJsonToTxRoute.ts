@@ -6,7 +6,7 @@ const jsonToTxrouter = express.Router();
 
 /**
  * @swagger
- * /users/jsonToTx:
+ * /transaction/json-tx:
  *   post:
  *     summary: Convert JSON to Unsigned Transaction for Cardano Blockchain
  *     description: Converts a JSON file to a transaction.

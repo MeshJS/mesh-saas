@@ -23,7 +23,7 @@ export const SIDENAV: {
   transaction: [
     {
       label: "JSON to Tx",
-      href: "/transaction/jsonToTx",
+      href: "/transaction/json-tx",
     },
   ],
   "mesh-utils": [

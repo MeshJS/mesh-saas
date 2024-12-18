@@ -17,7 +17,7 @@ app.use(cors());
 
 console.log("Setting up routes...");
 
-app.use("/users/jsonToTx", jsonToTxRouter);
+app.use("/transaction/json-tx", jsonToTxRouter);
 
 app.use("/users/meshUtilities", meshUtilitiesRouter);
 

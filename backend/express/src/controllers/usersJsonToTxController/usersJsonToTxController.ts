@@ -20,16 +20,15 @@ export const jsonToTx = async (req: Request, res: Response) => {
   }
 
   const blockchainProvider = new BlockfrostProvider(apiKey!);
-
-  const txBuilder = new MeshTxBuilder({
-    fetcher: blockchainProvider,
-    evaluator: blockchainProvider,
-  });
-
   try {
+    const txBuilder = new MeshTxBuilder({
+      fetcher: blockchainProvider,
+      evaluator: blockchainProvider,
+    });
     const unsignedTx = await txBuilder.complete(meshTxBody);
     return res.json({ unsignedTx });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: error.message });
   }
 };

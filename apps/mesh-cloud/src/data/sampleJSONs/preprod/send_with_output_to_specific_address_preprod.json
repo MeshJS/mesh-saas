@@ -41,5 +41,5 @@
     "strategy": "experimental",
     "includeTxFees": true
   },
-  "network": "mainnet"
+  "network": "preprod"
 }
