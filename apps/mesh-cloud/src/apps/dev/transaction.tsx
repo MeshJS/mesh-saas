@@ -195,10 +195,12 @@ const calculateActionSet = (
   console.log("expectedRedeemer", expectedRedeemer);
 
   const actionSets: ActionSet = {
-    SPEND: [],
-    MINT: [],
     CERT: [],
+    MINT: [],
     REWARD: [],
+    SPEND: [],
+    VOTE: [],
+    PROPOSE: [],
   };
 
   actualRedeemer.forEach((actualAction) => {
