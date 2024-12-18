@@ -150,6 +150,7 @@ export default function JsonToTx() {
 
   const runAPI = async () => {
     setLoading(true);
+    setSuccess("");
     setError("");
     try {
       const res = await axios.post(`${EXPRESS_BACKEND_URL}users/jsontoTx`, {

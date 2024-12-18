@@ -4,18 +4,15 @@ FROM node:18
 WORKDIR /usr/src/app
 
 # Copy Package Json
-COPY package.json yarn.lock* ./
+COPY package.json ./
 
 # Install Files
-RUN yarn install
-
-# Compile typescript
-RUN yarn add -D typescript
+RUN npm install
 
 # Copy Source Files
 COPY . .
 
 # Start
-EXPOSE 3000
+EXPOSE 3001
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "dev"]

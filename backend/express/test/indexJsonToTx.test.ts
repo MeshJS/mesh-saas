@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./index"; // Import your Express app
+import app from "../src/index"; // Import your Express app
 import noScriptTxInAndScriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/allMoneyGoesBackToChangeAddressPreprod.json";
 import scriptTxInJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/txSpendAScriptInputPreprod.json";
 import scriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/mintingPlutusAssetPreprod.json";

@@ -17,14 +17,16 @@
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "db:update": "prisma format && prisma db push && prisma generate"
+    "db:update": "prisma format && prisma db push && prisma generate",
+    "sh:deploy": "./scripts/deploy-cloud-run.sh express",
+    "sh:docker": "./scripts/start-docker.sh"
   },
   "prisma": {
     "schema": "./prisma/schema.prisma"
   },
   "dependencies": {
-    "@meshsdk/contract": "1.7.10",
-    "@meshsdk/core": "1.7.10",
+    "@meshsdk/contract": "1.8.2",
+    "@meshsdk/core": "1.8.2",
     "@prisma/client": "^5.14.0",
     "axios": "^1.5.0",
     "class-validator": "^0.14.0",
