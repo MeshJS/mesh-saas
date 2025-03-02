@@ -41,6 +41,6 @@ jobs:
       - name: Prerun GCP auth
         run: |
           echo "${{secrets.GCP_CREDENTIALS}}" > ./google-credentials.json && gcloud auth login --brief --cred-file=./google-credentials.json --update-adc
-          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker asia-southeast1-docker.pkg.dev
       - name: Deploy Backend
         run: npm run deploy
