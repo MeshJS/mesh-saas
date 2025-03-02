@@ -2,6 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
+    "sh:deploy": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "build": {
       "dependsOn": [
         "^build:backend",
@@ -40,7 +45,9 @@
       ]
     },
     "dev": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "cache": false,
       "persistent": true
     },

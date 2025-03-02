@@ -34,7 +34,7 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_BACKEND_URL: z.string().url(),
-    NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD: z.string(),
+    // NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD: z.string(),
   },
 
   /**
@@ -49,7 +49,10 @@ export const env = createEnv({
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
     // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
-    NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD: process.env.NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD
+    // BLOCKFROST_API_KEY_PREPROD: process.env.BLOCKFROST_API_KEY_PREPROD,
+    // BLOCKFROST_API_KEY_TESTNET: process.env.BLOCKFROST_API_KEY_TESTNET,
+    // BLOCKFROST_API_KEY_MAINNET: process.env.BLOCKFROST_API_KEY_MAINNET,
+    // BLOCKFROST_API_KEY_PREVIEW: process.env.BLOCKFROST_API_KEY_PREVIEW,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
