@@ -1,7 +1,6 @@
 import axios from "axios";
-import { env } from "@/env";
 
-const url = env.NEXT_PUBLIC_BACKEND_URL;
+const url = process.env.NEXT_PUBLIC_YACI_BACKEND_URL;
 
 export const instance = axios.create({
   baseURL: url,
