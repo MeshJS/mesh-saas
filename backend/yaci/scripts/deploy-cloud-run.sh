@@ -10,7 +10,7 @@ fi
 if [ "$1" == "yaci" ]; then
   echo "Parameter is 'yaci'. Running commands..."
   
-  docker buildx build --platform linux/amd64 -t yaci-backend-image --push .
+  docker buildx build --platform linux/amd64 -t yaci-backend-image .
   docker tag yaci-backend-image asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/yaci-backend-image
   docker push asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/yaci-backend-image:latest
   gcloud run deploy yaci-backend-image --image=asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/yaci-backend-image:latest --project mesh-432507 --region=asia-southeast1 --allow-unauthenticated

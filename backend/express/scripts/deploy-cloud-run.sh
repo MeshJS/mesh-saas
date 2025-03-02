@@ -10,7 +10,7 @@ fi
 if [ "$1" == "express" ]; then
   echo "Parameter is 'express'. Running commands..."
   
-  docker buildx build --platform linux/amd64 -t mesh-cloud-backend-server-image --push .
+  docker buildx build --platform linux/amd64 -t mesh-cloud-backend-server-image .
   docker tag mesh-cloud-backend-server-image asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/mesh-cloud-backend-server-image
   docker push asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/mesh-cloud-backend-server-image:latest
   gcloud run deploy mesh-cloud-backend-server-image --image=asia-southeast1-docker.pkg.dev/mesh-432507/mesh-saas-repo/mesh-cloud-backend-server-image:latest --project mesh-432507 --region=asia-southeast1 --allow-unauthenticated
