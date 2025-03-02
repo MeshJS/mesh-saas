@@ -39,6 +39,8 @@ export default function SerializeNativeScript() {
         ],
       };
 
+      console.log("EXPRESS_BACKEND_URL", EXPRESS_BACKEND_URL);
+
       const res = await axios.post(
         `${EXPRESS_BACKEND_URL}users/meshUtilities/serializers/serializeNativeScript`,
         {

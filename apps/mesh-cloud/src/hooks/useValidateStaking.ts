@@ -10,12 +10,19 @@ import {
 import { useWallet } from "@meshsdk/react";
 import { useCallback, useEffect, useState } from "react";
 
-const blockfrostApiKey = process.env.NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD!;
 const meshPoolId = process.env.NEXT_PUBLIC_MESH_POOL_ID!;
 const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!; // (Leon, 10/08/2024) - Use CIP-105 DRep ID for backward compatibility, as current Mesh csl does not support CIP-129 yet
 
+export function getProvider(network = "preprod") {
+  const blockchainProvider = new BlockfrostProvider(
+    `/api/blockfrost/${network}/`,
+  );
+  blockchainProvider.setSubmitTxToBytes(false);
+  return blockchainProvider;
+}
+
 export const useValidateStaking = () => {
-  const blockchainProvider = new BlockfrostProvider(blockfrostApiKey);
+  const blockchainProvider = getProvider("mainnet");
 
   const walletInfo = useWallet();
 
