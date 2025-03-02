@@ -32,9 +32,7 @@ export function SelectNetwork({
   return (
     <Select onValueChange={setValue}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue
-          placeholder={placeholder ? placeholder : "Select a Network"}
-        />
+        <SelectValue placeholder={placeholder ?? "Select a Network"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
