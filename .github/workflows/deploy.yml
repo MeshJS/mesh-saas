@@ -40,7 +40,6 @@ jobs:
           install_components: "gcloud"
       - name: Prerun GCP auth
         run: |
-          gcloud auth login --brief --cred-file=./google-credentials.json --update-adc
           gcloud auth configure-docker asia-southeast1-docker.pkg.dev
       - name: Deploy Backend
         run: npm run deploy
