@@ -8,9 +8,6 @@ on:
     types: [created]
   push:
     branches:
-      - ci/github-action
-  pull_request:
-    branches:
       - main
 
 jobs:
