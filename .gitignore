@@ -45,3 +45,4 @@ package-lock.json
 
 # GCP
 key.json
+service-account.json
