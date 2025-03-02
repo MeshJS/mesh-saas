@@ -38,5 +38,9 @@ jobs:
         with:
           project_id: mesh-432507
           install_components: "gcloud"
+      - name: Prerun GCP auth
+        run: |
+          echo "$GCP_CREDENTIALS" > ./google-credentials.json && gcloud auth login --brief --cred-file=./google-credentials.json --update-adc
+          gcloud auth configure-docker --quiet
       - name: Deploy Backend
         run: npm run deploy
