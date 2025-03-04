@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./index"; // Import your Express app
+import app from "../src/index"; // Import your Express app
 import noScriptTxInAndScriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/allMoneyGoesBackToChangeAddressPreprod.json";
 import scriptTxInJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/txSpendAScriptInputPreprod.json";
 import scriptMintJsonPreprod from "../test/sampleJSONs/jsonToTxPreprod/mintingPlutusAssetPreprod.json";
@@ -8,14 +8,14 @@ import scriptMintJsonNoCollateralPreprod from "../test/sampleJSONs/jsonToTxPrepr
 import scriptTxInJsonNoCollateralPreprod from "../test/sampleJSONs/jsonToTxPreprod/txSpendAScriptInputWithNoCollateralPreprod.json";
 import noScriptTxInAndScriptMintJsonMainnet from "../test/sampleJSONs/jsonToTxMainnet/allMoneyGoesBackToChangeAddressMainnet.json";
 
-describe("POST /users/jsontoTx", () => {
+describe("POST /transaction/json-tx", () => {
   it("should process JSON file with no ScriptTxIn and ScriptSource and return unsignedTx", async () => {
     const data = noScriptTxInAndScriptMintJsonPreprod;
 
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -31,7 +31,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -47,7 +47,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -63,7 +63,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsontoTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -79,7 +79,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -94,7 +94,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 
@@ -109,7 +109,7 @@ describe("POST /users/jsontoTx", () => {
     console.log("Sending request with data:", data);
 
     const response = await request(app)
-      .post("/users/jsonToTx")
+      .post("/transaction/json-tx")
       .send(data)
       .set("Accept", "application/json");
 

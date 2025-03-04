@@ -10,15 +10,22 @@ import {
 import { useWallet } from "@meshsdk/react";
 import { useCallback, useEffect, useState } from "react";
 
-const blockfrostApiKey = process.env.NEXT_PUBLIC_BLOCKFROST_API_KEY_PREPROD!;
 const sidanPoolId = process.env.NEXT_PUBLIC_SIDAN_POOL_ID!;
 const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!;
 const sidanDRepId = process.env.NEXT_PUBLIC_SIDAN_DREP_ID!;
 
 type DRepOption = "mesh" | "sidan";
 
+export function getProvider(network = "preprod") {
+  const blockchainProvider = new BlockfrostProvider(
+    `/api/blockfrost/${network}/`,
+  );
+  blockchainProvider.setSubmitTxToBytes(false);
+  return blockchainProvider;
+}
+
 export const useValidateStaking = () => {
-  const blockchainProvider = new BlockfrostProvider(blockfrostApiKey);
+  const blockchainProvider = getProvider("mainnet");
 
   const walletInfo = useWallet();
 

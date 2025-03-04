@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "./index";
+import app from "../src/index"; // Import your Express app
 
 describe("GET /users/mesh_utilities/deserializers", () => {
   it("deserialize address", async () => {

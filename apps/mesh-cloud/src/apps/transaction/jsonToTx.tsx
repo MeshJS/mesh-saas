@@ -1,9 +1,8 @@
 import CardSection from "@/components/card-section";
 import Metatags from "@/components/site/metatags";
-import Codeblock from "@/components/text/codeblock";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+// import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -16,7 +15,7 @@ import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import TransactionLayout from "./layout";
-import { SelectNetwork } from "@/apps/dev/transaction";
+// import { SelectNetwork } from "@/apps/dev/transaction";
 
 import noScriptTxInJson_preprod from "@/data/sampleJSONs/preprod/all_money_goes_back_to_change_address_preprod.json";
 import noScriptTxInJson2_preprod from "@/data/sampleJSONs/preprod/send_with_output_to_specific_address_preprod.json";
@@ -25,6 +24,9 @@ import scriptMintJson_preprod from "@/data/sampleJSONs/preprod/minting_plutus_as
 import scriptMintJson_no_collateral_preprod from "@/data/sampleJSONs/preprod/minting_plutus_asset_with_no_collateral_preprod.json";
 import scriptTxInJson_no_collateral_preprod from "@/data/sampleJSONs/preprod/tx_spend_a_script_input_with_no_collateral_preprod.json";
 import noscriptTxIn_and_scriptMintJson_mainnet from "@/data/sampleJSONs/mainnet/all_money_goes_back_to_change_address_mainnet.json";
+import { Textarea } from "@/components/ui/textarea";
+import Code from "@/components/code";
+import Codeblock from "@/components/text/codeblock";
 // import scriptTxInJson_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/tx_spend_a_script_input_mainnet.json";
 // import scriptMintJson_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/minting_plutus_asset_mainnet.json";
 // import noscriptTxIn_and_scriptMintJson2_mainnet from "@/data/sampleJSONs/sampleJSONs/mainnet/send_with_output_to_specific_address_mainnet.json";
@@ -72,15 +74,16 @@ export function SelectJSON({
                 JSON with no ScriptTxIn and ScriptSource 2 (Preprod)
               </SelectItem>
               <SelectItem value={JSON.stringify(scriptTxInJson_preprod)}>
-                JSON with ScriptTxIn and collaterals (Preprod)
+                JSON with Script TxIn and collaterals (Preprod)
               </SelectItem>
               <SelectItem value={JSON.stringify(scriptMintJson_preprod)}>
-                JSON with ScriptMint and collaterals (Preprod)
+                JSON with Script Mint and collaterals (Preprod)
               </SelectItem>
               <SelectItem
                 value={JSON.stringify(scriptMintJson_no_collateral_preprod)}
               >
-                JSON with ScriptMint and collaterals 2 (Preprod) (Error Example)
+                JSON with Script Mint and collaterals 2 (Preprod) (Error
+                Example)
               </SelectItem>
               <SelectItem
                 value={JSON.stringify(scriptTxInJson_no_collateral_preprod)}
@@ -150,11 +153,15 @@ export default function JsonToTx() {
 
   const runAPI = async () => {
     setLoading(true);
+    setSuccess("");
     setError("");
     try {
-      const res = await axios.post(`${EXPRESS_BACKEND_URL}users/jsontoTx`, {
-        ...JSON.parse(input),
-      });
+      const res = await axios.post(
+        `${EXPRESS_BACKEND_URL}transaction/json-tx`,
+        {
+          ...JSON.parse(input),
+        },
+      );
       const data = res.data;
       setSuccess(data.unsignedTx);
     } catch (error) {
@@ -166,9 +173,11 @@ export default function JsonToTx() {
   };
 
   let codeSnippet = "";
-  codeSnippet+=`const res = await axios.post("${EXPRESS_BACKEND_URL}users/jsontoTx", {\n`;
-  codeSnippet+=`  ...meshTxBody,\n`;
-  codeSnippet+=`});\n`;
+  codeSnippet += `const res = await axios.post("${EXPRESS_BACKEND_URL}transaction/json-tx",\n`;
+  codeSnippet += `  {\n`
+  codeSnippet += `    ...meshTxBody,\n`;
+  codeSnippet += `  }\n`
+  codeSnippet += `)`
 
   return (
     <TransactionLayout>
@@ -182,7 +191,7 @@ export default function JsonToTx() {
               Run API
             </Button>
 
-            <Button onClick={() => runAPI()} disabled={!isStaked}>
+            {/* <Button onClick={() => runAPI()} disabled={!isStaked}>
               Run API (auth Test: stake)
             </Button>
 
@@ -195,12 +204,12 @@ export default function JsonToTx() {
               disabled={!isStaked || !isDRepDelegated}
             >
               Run API (auth Test: both)
-            </Button>
+            </Button> */}
           </div>
         }
       >
         <div className="grid gap-3">
-          <Label htmlFor="input">API Input</Label>
+          {/* <Label htmlFor="input">API Input</Label>
           <SelectNetwork setValue={setNetwork} placeholder="Preprod" />
           <SelectJSON
             setValue={setInput}
@@ -210,15 +219,15 @@ export default function JsonToTx() {
 
           <Codeblock data={JSON.parse(input)} isJson language="javascript" />
 
-          <Codeblock data={codeSnippet} language="javascript" />
+          <Codeblock data={codeSnippet} language="javascript" /> */}
 
-          {/* <Textarea
+          <Textarea
             id="input"
             className="min-h-[240px]"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-          /> */}
+          />
         </div>
         {error && (
           <>
@@ -239,6 +248,15 @@ export default function JsonToTx() {
             </AlertDescription>
           </Alert>
         )}
+      </CardSection>
+
+      <CardSection title="API" description="API for Yaci devnet">
+        <>
+          <p>API to build transaction via API:</p>
+          <Code>{EXPRESS_BACKEND_URL}/transaction/json-tx</Code>
+
+          <Codeblock data={codeSnippet} language="javascript" />
+        </>
       </CardSection>
     </TransactionLayout>
   );

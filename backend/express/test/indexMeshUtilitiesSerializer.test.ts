@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "./index";
+import app from "../src/index";
 import sampleNativeScript from "../test/sampleJSONs/meshUtilitiesSerializers/sampleNativeScript.json";
-import { demoPlutusAlwaysSucceedScript } from "./data/cardano";
-import { demoPubKeyHash, demoStakeCredential } from "./data/cardano";
+import { demoPlutusAlwaysSucceedScript } from "../src/data/cardano";
+import { demoPubKeyHash, demoStakeCredential } from "../src/data/cardano";
 
 // To test successfully, you would need to run individual test case by adding .only to the described test case
 

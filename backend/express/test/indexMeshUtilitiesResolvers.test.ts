@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "./index";
-import { demoMnemonic } from "./data/cardano";
+import app from "../src/index"; // Import your Express app
+import { demoMnemonic } from "../src/data/cardano";
 import * as meshSdkCore from "@meshsdk/core";
 
 describe("POST /users/meshUtilities/resolvers", () => {

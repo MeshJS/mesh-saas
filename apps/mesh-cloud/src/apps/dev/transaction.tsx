@@ -32,9 +32,7 @@ export function SelectNetwork({
   return (
     <Select onValueChange={setValue}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue
-          placeholder={placeholder ? placeholder : "Select a Network"}
-        />
+        <SelectValue placeholder={placeholder ?? "Select a Network"} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -195,10 +193,12 @@ const calculateActionSet = (
   console.log("expectedRedeemer", expectedRedeemer);
 
   const actionSets: ActionSet = {
-    SPEND: [],
-    MINT: [],
     CERT: [],
+    MINT: [],
     REWARD: [],
+    SPEND: [],
+    VOTE: [],
+    PROPOSE: [],
   };
 
   actualRedeemer.forEach((actualAction) => {
