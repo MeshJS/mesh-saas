@@ -100,4 +100,10 @@ export const SIDENAV: {
       href: "/mesh-utils/resolveSlotNumber",
     },
   ],
+  cquistor: [
+    {
+      label: "CBOR to JSON",
+      href: "/cbor-to-json",
+    },
+  ],
 };
