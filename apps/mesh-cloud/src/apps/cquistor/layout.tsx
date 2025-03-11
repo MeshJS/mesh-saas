@@ -1,5 +1,6 @@
-import LayoutPage from "@/components/layouts/page";
+import LayoutWithoutSideNav from "@/components/layouts/page/layout-no-side-nav";
 import Metatags from "@/components/site/metatags";
+import { ReactFlowProvider } from "@xyflow/react";
 
 export default function CquistorLayout({
   children,
@@ -7,9 +8,9 @@ export default function CquistorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LayoutPage pageTitle="cquistor" sideNav="cquistor">
+    <LayoutWithoutSideNav pageTitle="cquistor">
       <Metatags title="cquistor" />
       {children}
-    </LayoutPage>
+    </LayoutWithoutSideNav>
   );
 }
