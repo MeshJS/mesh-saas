@@ -1,6 +1,11 @@
 import CardSection from "@/components/card-section";
 import Metatags from "@/components/site/metatags";
-import { MergeEdge } from "@/components/ui/react-flow/custom-edges";
+import {
+  MergeEdgeXLeft,
+  MergeEdgeXRight,
+  MergeEdgeYTop,
+  MergeEdgeYBottom,
+} from "@/components/ui/react-flow/custom-edges";
 import {
   FeeNode,
   InputNode,
@@ -21,6 +26,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import CquistorLayout from "./layout";
 
 import "@xyflow/react/dist/style.css";
+import { title } from "process";
 
 const CquistorGraph = () => {
   const { setViewport } = useReactFlow();
@@ -85,49 +91,115 @@ const CquistorGraph = () => {
       position: { x: 900, y: 300 },
       data: { value: "abc" },
     },
+    {
+      id: "mint",
+      type: "mint",
+      position: { x: 250, y: -100 },
+      data: {
+        title: "Mint",
+        value: "1",
+      },
+    },
+    {
+      id: "withdrawal",
+      type: "mint",
+      position: { x: 600, y: -100 },
+      data: {
+        title: "Withdrawal",
+        value: "100",
+      },
+    },
+    {
+      id: "fee",
+      type: "fee",
+      position: { x: 250, y: 500 },
+      data: {
+        title: "Fee",
+        value: "5",
+      },
+    },
+    {
+      id: "burn",
+      type: "fee",
+      position: { x: 600, y: 500 },
+      data: {
+        title: "Burn",
+        value: "200",
+      },
+    },
   ];
   const initialEdges = [
     {
       id: "link-input-1-txHash",
-      type: "merge",
+      type: "mergeXLeft",
       source: "input-1",
       target: "txHash",
     },
     {
       id: "link-input-2-txHash",
-      type: "merge",
+      type: "mergeXLeft",
       source: "input-2",
       target: "txHash",
     },
     {
       id: "link-input-3-txHash",
-      type: "merge",
+      type: "mergeXLeft",
       source: "input-3",
       target: "txHash",
     },
     {
       id: "link-output-1-txHash",
-      type: "merge",
+      type: "mergeXRight",
       source: "txHash",
       target: "output-1",
     },
     {
       id: "link-output-2-txHash",
-      type: "merge",
+      type: "mergeXRight",
       source: "txHash",
       target: "output-2",
     },
     {
       id: "link-output-3-txHash",
-      type: "merge",
+      type: "mergeXRight",
       source: "txHash",
       target: "output-3",
     },
+    {
+      id: "link-mint-txHash",
+      type: "mergeYTop",
+      source: "mint",
+      target: "txHash",
+      targetHandle: "txhash-top",
+    },
+    {
+      id: "link-withdrawal-txHash",
+      type: "mergeYTop",
+      source: "withdrawal",
+      target: "txHash",
+      targetHandle: "txhash-top",
+    },
+    {
+      id: "link-fee-txHash",
+      type: "mergeYBottom",
+      source: "txHash",
+      sourceHandle: "txhash-bottom",
+      target: "fee",
+    },
+    {
+      id: "link-burn-txHash",
+      type: "mergeYBottom",
+      source: "txHash",
+      sourceHandle: "txhash-bottom",
+      target: "burn",
+    },
   ];
-
   const edgeTypes = useMemo(
     () => ({
-      merge: MergeEdge,
+      mergeXLeft: MergeEdgeXLeft,
+      mergeXRight: MergeEdgeXRight,
+      mergeYTop: MergeEdgeYTop,
+      mergeYBottom: MergeEdgeYBottom,
     }),
     [],
   );

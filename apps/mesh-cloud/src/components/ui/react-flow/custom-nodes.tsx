@@ -39,7 +39,7 @@ export const TxHashNode = ({ data }: BasicNodeProps) => {
           className="z-10"
         />
         <Handle
-          type="target"
+          type="source"
           position={Position.Bottom}
           id="txhash-bottom"
           className="z-10"
