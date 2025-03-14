@@ -92,7 +92,7 @@ const optionToGraphProps = (body: any): GraphProps => {
       type: "txOption",
       position: {
         x: graphCenter.x - 150 + 300 * index,
-        y: graphCenter.y - 400,
+        y: graphCenter.y - 200,
       },
       data: { title: key, value: body[key] },
     };
@@ -144,8 +144,6 @@ const feeToGraphProps = (body: any): GraphProps => {
 };
 
 export const jsonToGraphProps = (json: any): GraphProps => {
-  console.log(json);
-
   const { input, txHash, output, option, fee } = json;
 
   const graphNodes = txHashToGraphProps(txHash);

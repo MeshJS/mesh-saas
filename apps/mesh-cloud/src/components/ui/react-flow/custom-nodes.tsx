@@ -11,6 +11,28 @@ const defaultIndexStyle =
 
 const defaultValueStyle = "w-full rounded-sm border border-gray-300 px-2 py-1";
 
+const renderValue = (value: any) => {
+  return (
+    <>
+      {Object.keys(value).map((key) => {
+        if (typeof value[key] === "string") {
+          return (
+            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
+          );
+        } else {
+          return Object.keys(value).map((key) => {
+            return (
+              <p
+                className={cn(defaultValueStyle)}
+              >{`${key}: ${String(value[key])}`}</p>
+            );
+          });
+        }
+      })}
+    </>
+  );
+};
+
 export interface BasicNodeProps {
   data: {
     title?: string;
@@ -53,11 +75,7 @@ export const TxHashNode = ({ data }: BasicNodeProps) => {
       <div className={cn(defaultNodeStyle, "-skew-x-12 px-4")}>
         <div className="w-full skew-x-12">
           <label htmlFor="text">{title ? `${title}:` : "Tx Hash:"}</label>
-          {Object.keys(value).map((key) => {
-            return (
-              <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-            );
-          })}
+          {renderValue(value)}
         </div>
       </div>
     </>
@@ -73,11 +91,7 @@ export const InputNode = ({ data }: BasicNodeProps) => {
           <p className="z-10 -rotate-45">{"#" + index}</p>
         </div>
         <label htmlFor="text">{`${title || "Title"}:`}</label>
-        {Object.keys(value).map((key, index) => {
-          return (
-            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-          );
-        })}
+        {renderValue(value)}
       </div>
       <Handle type="source" position={Position.Right} id="a" className="z-10" />
     </>
@@ -93,11 +107,7 @@ export const OutputNode = ({ data }: BasicNodeProps) => {
           <p className="z-10 -rotate-45">{"#" + index}</p>
         </div>
         <label htmlFor="text">{title ? `${title}:` : "Output:"}</label>
-        {Object.keys(value).map((key) => {
-          return (
-            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-          );
-        })}
+        {renderValue(value)}
       </div>
       <Handle type="target" position={Position.Left} id="a" className="z-10" />
     </>
@@ -110,11 +120,7 @@ export const OptionNode = ({ data }: BasicNodeProps) => {
     <>
       <div className={cn(defaultNodeStyle)}>
         <label htmlFor="text">{title ? `${title}:` : "Mint:"}</label>
-        {Object.keys(value).map((key) => {
-          return (
-            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-          );
-        })}
+        {renderValue(value)}
       </div>
       <Handle
         type="source"
@@ -132,11 +138,7 @@ export const FeeNode = ({ data }: BasicNodeProps) => {
     <>
       <div className={cn(defaultNodeStyle)}>
         <label htmlFor="text">{title ? `${title}:` : "Fee:"}</label>
-        {Object.keys(value).map((key) => {
-          return (
-            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-          );
-        })}
+        {renderValue(value)}
       </div>
       <Handle type="target" position={Position.Top} id="a" className="z-10" />
     </>
