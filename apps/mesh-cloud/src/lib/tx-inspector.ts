@@ -1,11 +1,10 @@
+import { graphCenter } from "@/apps/tx-inspector/graph";
 import { type Edge, type Node } from "@xyflow/react";
 
 interface GraphProps {
   nodes: Node[];
   edges: Edge[];
 }
-
-export const graphCenter = { x: 0, y: 0 };
 
 export const txHashToGraphProps = (body: any): Node[] => {
   const nodes = [

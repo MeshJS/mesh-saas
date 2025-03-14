@@ -1,4 +1,4 @@
-import { graphCenter } from "@/lib/tx-inspector";
+import { graphCenter } from "@/apps/tx-inspector/graph";
 import { BaseEdge, EdgeProps } from "@xyflow/react";
 
 export const MergeEdgeXLeft = ({

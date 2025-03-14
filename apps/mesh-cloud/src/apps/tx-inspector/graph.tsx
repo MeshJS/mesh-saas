@@ -29,15 +29,17 @@ import TxInspectorLayout from "./layout";
 
 import "@xyflow/react/dist/style.css";
 
+export const graphCenter = { x: 0, y: 0 };
+
 const TxInspectorGraph = () => {
   const { setViewport } = useReactFlow();
 
   const setInitialViewport = useCallback(() => {
     setViewport(
       {
-        x: 0,
-        y: 0,
-        zoom: 0.7,
+        x: graphCenter.x + 400,
+        y: graphCenter.y + 180,
+        zoom: 0.5,
       },
       {
         duration: 600,
