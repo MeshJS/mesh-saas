@@ -1,3 +1,4 @@
+import { graphCenter } from "@/lib/cquistor";
 import { BaseEdge, EdgeProps } from "@xyflow/react";
 
 export const MergeEdgeXLeft = ({
@@ -8,7 +9,10 @@ export const MergeEdgeXLeft = ({
   targetY,
 }: EdgeProps) => {
   const distanceBeforeMerge = 1 / 5;
-  const mergeX = (targetX - sourceX) * distanceBeforeMerge + sourceX;
+  const mergeX = Math.min(
+    (targetX - sourceX) * distanceBeforeMerge + sourceX,
+    graphCenter.x + 100,
+  );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${mergeX} ${sourceY} L ${mergeX} ${targetY} L ${targetX} ${targetY}`;
 
@@ -23,7 +27,10 @@ export const MergeEdgeXRight = ({
   targetY,
 }: EdgeProps) => {
   const distanceBeforeMerge = 4 / 5;
-  const mergeX = (targetX - sourceX) * distanceBeforeMerge + sourceX;
+  const mergeX = Math.max(
+    (targetX - sourceX) * distanceBeforeMerge + sourceX,
+    graphCenter.x - 100,
+  );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${mergeX} ${sourceY} L ${mergeX} ${targetY} L ${targetX} ${targetY}`;
 
@@ -38,7 +45,10 @@ export const MergeEdgeYTop = ({
   targetY,
 }: EdgeProps) => {
   const distanceBeforeMerge = 1 / 5;
-  const mergeY = (targetY - sourceY) * distanceBeforeMerge + sourceY;
+  const mergeY = Math.max(
+    (targetY - sourceY) * distanceBeforeMerge + sourceY,
+    graphCenter.y - 50,
+  );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${sourceX} ${mergeY} L ${targetX} ${mergeY} L ${targetX} ${targetY}`;
 
@@ -53,7 +63,10 @@ export const MergeEdgeYBottom = ({
   targetY,
 }: EdgeProps) => {
   const distanceBeforeMerge = 4 / 5;
-  const mergeY = (targetY - sourceY) * distanceBeforeMerge + sourceY;
+  const mergeY = Math.min(
+    (targetY - sourceY) * distanceBeforeMerge + sourceY,
+    graphCenter.y + 150,
+  );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${sourceX} ${mergeY} L ${targetX} ${mergeY} L ${targetX} ${targetY}`;
 

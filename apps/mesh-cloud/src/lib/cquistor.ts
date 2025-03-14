@@ -5,7 +5,7 @@ interface GraphProps {
   edges: Edge[];
 }
 
-const graphCenter = { x: 0, y: 0 };
+export const graphCenter = { x: 0, y: 0 };
 
 export const txHashToGraphProps = (body: any): Node[] => {
   const nodes = [
