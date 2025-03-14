@@ -100,10 +100,10 @@ export const SIDENAV: {
       href: "/mesh-utils/resolveSlotNumber",
     },
   ],
-  cquistor: [
+  "tx-inspector": [
     {
-      label: "CBOR to JSON",
-      href: "/cbor-to-json",
+      label: "Graph",
+      href: "/graph",
     },
   ],
 };

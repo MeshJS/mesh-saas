@@ -14,6 +14,8 @@ import {
   TxHashNode,
 } from "@/components/ui/react-flow/custom-nodes";
 import { Textarea } from "@/components/ui/textarea";
+import { mockJson } from "@/data/mock-tx-inspector";
+import { jsonToGraphProps } from "@/lib/tx-inspector";
 import {
   addEdge,
   ReactFlow,
@@ -23,13 +25,11 @@ import {
   useReactFlow,
 } from "@xyflow/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import CquistorLayout from "./layout";
+import TxInspectorLayout from "./layout";
 
-import { mockJson } from "@/data/mock-Cquistor";
-import { jsonToGraphProps } from "@/lib/cquistor";
 import "@xyflow/react/dist/style.css";
 
-const CquistorGraph = () => {
+const TxInspectorGraph = () => {
   const { setViewport } = useReactFlow();
 
   const setInitialViewport = useCallback(() => {
@@ -103,7 +103,7 @@ export default function CborToJson() {
   const [input, setInput] = useState("");
 
   return (
-    <CquistorLayout>
+    <TxInspectorLayout>
       <Metatags title="JSON to Tx" />
       <Textarea
         id="input"
@@ -114,15 +114,15 @@ export default function CborToJson() {
       />
 
       <CardSection
-        title="Cquistor"
+        title="Tx Inspector"
         description="Transaction graph for your CBOR"
       >
         <div className="h-[480px] w-full">
           <ReactFlowProvider>
-            <CquistorGraph />
+            <TxInspectorGraph />
           </ReactFlowProvider>
         </div>
       </CardSection>
-    </CquistorLayout>
+    </TxInspectorLayout>
   );
 }

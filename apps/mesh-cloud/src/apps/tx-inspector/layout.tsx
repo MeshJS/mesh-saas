@@ -1,15 +1,14 @@
 import LayoutWithoutSideNav from "@/components/layouts/page/layout-no-side-nav";
 import Metatags from "@/components/site/metatags";
-import { ReactFlowProvider } from "@xyflow/react";
 
-export default function CquistorLayout({
+export default function TxInspectorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <LayoutWithoutSideNav pageTitle="cquistor">
-      <Metatags title="cquistor" />
+    <LayoutWithoutSideNav pageTitle="tx-inspector">
+      <Metatags title="tx-inspector" />
       {children}
     </LayoutWithoutSideNav>
   );

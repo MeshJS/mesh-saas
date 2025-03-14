@@ -16,7 +16,7 @@ export const NAV = [
     href: "/mesh-utils",
   },
   {
-    label: "Cquistor",
-    href: "/cquistor",
+    label: "Tx Inspector",
+    href: "/tx-inspector",
   },
 ];
