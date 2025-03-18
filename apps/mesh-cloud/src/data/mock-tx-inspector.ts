@@ -1,12 +1,27 @@
 const mockInput = {
   0: {
     ada: 2,
+    indy: 4.12,
+    staking_position: 1,
+    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    datum:
+      "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
   1: {
     ada: 3.21,
+    indy: 4.12,
+    staking_position: 1,
+    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    datum:
+      "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
   2: {
     ada: 4.86,
+    indy: 4.12,
+    staking_position: 1,
+    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    datum:
+      "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
 };
 

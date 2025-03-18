@@ -30,8 +30,8 @@ export const inputToGraphProps = (body: any): GraphProps => {
       id: `input-${key}`,
       type: "txInput",
       position: {
-        x: graphCenter.x - 600,
-        y: graphCenter.y - ((input.length - 1) / 2) * 150 + 150 * index,
+        x: graphCenter.x - 800,
+        y: graphCenter.y - ((input.length - 1) / 2) * 150 + 250 * index,
       },
       data: { value: body[key], index: key },
     };

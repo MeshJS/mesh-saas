@@ -1,35 +1,54 @@
 import { cn } from "@/lib/utils";
 import { Handle, Position } from "@xyflow/react";
+import { useState } from "react";
 
 import "@xyflow/react/dist/style.css";
 
 const defaultNodeStyle =
-  "border border-gray-300 w-fit min-w-[280px] rounded-md p-4 relative flex justify-center flex-col items-start gap-2 bg-zinc-900";
+  "border border-gray-300 w-fit min-w-[200px] rounded-md p-4 relative flex justify-center flex-col items-start gap-2 bg-zinc-900";
 
 const defaultIndexStyle =
   "absolute top-0 left-0 translate-y-[-50%] translate-x-[-50%] border border-gray-300 p-1 rotate-45 w-[36px] text-center h-[36px] bg-zinc-900";
 
-const defaultValueStyle = "w-full rounded-sm border border-gray-300 px-2 py-1";
+const defaultValueStyle =
+  "w-full rounded-sm border border-gray-300 px-2 py-1 max-w-[300px] overflow-x-hidden";
 
-const renderValue = (value: any) => {
+const renderValue = (value: any, displayList: string[] = []) => {
   return (
     <>
       {Object.keys(value).map((key) => {
-        if (typeof value[key] === "string") {
+        if (
+          displayList.includes(key.toLowerCase()) ||
+          displayList.length === 0
+        ) {
           const displayValue =
-            key === "ada" ? `${value[key]} ₳` : `${key}: ${value[key]}`;
+            key === "ada"
+              ? `${value[key]} ₳`
+              : `${key.toUpperCase()}: ${value[key]}`;
+
           return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
-        } else {
-          return Object.keys(value).map((key) => {
-            const displayValue =
-              key === "ada"
-                ? `${value[key]} ₳`
-                : `${key}: ${String(value[key])}`;
-            return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
-          });
         }
       })}
     </>
+  );
+};
+
+const renderDetails = (value: any) => {
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {Object.keys(value).map((key) => {
+        let displayValue =
+          key === "ada"
+            ? `${value[key]} ₳`
+            : `${key.toUpperCase()}: ${String(value[key])}`;
+
+        displayValue =
+          displayValue.length > 24
+            ? `${displayValue.slice(0, 24)}...`
+            : displayValue;
+        return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
+      })}
+    </div>
   );
 };
 
@@ -84,14 +103,22 @@ export const TxHashNode = ({ data }: BasicNodeProps) => {
 
 export const InputNode = ({ data }: BasicNodeProps) => {
   const { title, value, index } = data;
+  const [expanded, setExpanded] = useState(false);
+
+  const handleClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const displayList = ["ada", "indy", "staking_position"];
+
   return (
     <>
-      <div className={cn(defaultNodeStyle)}>
+      <div className={cn(defaultNodeStyle)} onClick={handleClick}>
         <div className={cn(defaultIndexStyle)}>
           <p className="z-10 -rotate-45">{"#" + index}</p>
         </div>
         <label htmlFor="text">{`${title || "Title"}:`}</label>
-        {renderValue(value)}
+        {expanded ? renderDetails(value) : renderValue(value, displayList)}
       </div>
       <Handle type="source" position={Position.Right} id="a" className="z-10" />
     </>
