@@ -106,7 +106,7 @@ export default function CborToJson() {
 
   return (
     <TxInspectorLayout>
-      <Metatags title="JSON to Tx" />
+      <Metatags title="Tx Inspector" />
       <Textarea
         id="input"
         className="min-h-[240px]"

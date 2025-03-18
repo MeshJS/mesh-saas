@@ -16,16 +16,16 @@ const renderValue = (value: any) => {
     <>
       {Object.keys(value).map((key) => {
         if (typeof value[key] === "string") {
-          return (
-            <p className={cn(defaultValueStyle)}>{`${key}: ${value[key]}`}</p>
-          );
+          const displayValue =
+            key === "ada" ? `${value[key]} ₳` : `${key}: ${value[key]}`;
+          return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
         } else {
           return Object.keys(value).map((key) => {
-            return (
-              <p
-                className={cn(defaultValueStyle)}
-              >{`${key}: ${String(value[key])}`}</p>
-            );
+            const displayValue =
+              key === "ada"
+                ? `${value[key]} ₳`
+                : `${key}: ${String(value[key])}`;
+            return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
           });
         }
       })}
