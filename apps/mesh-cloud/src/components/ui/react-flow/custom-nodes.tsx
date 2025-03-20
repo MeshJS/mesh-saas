@@ -165,14 +165,32 @@ export const InputNode = ({ data }: BasicNodeProps) => {
 
 export const OutputNode = ({ data }: BasicNodeProps) => {
   const { title, value, index } = data;
+  const [expanded, setExpanded] = useState(false);
+
+  const handleClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const displayList = ["ada", "indy", "staking_position"];
+
   return (
     <>
       <div className={cn(defaultNodeStyle)}>
         <div className={cn(defaultIndexStyle)}>
           <p className="z-10 -rotate-45">{"#" + index}</p>
         </div>
-        <label htmlFor="text">{title ? `${title}:` : "Output:"}</label>
-        {renderValue(value)}
+
+        <div className="relative flex w-full items-center justify-between">
+          <label
+            htmlFor="text"
+            className="text-xl"
+          >{`${title || "Output"}:`}</label>
+
+          <Button onClick={() => handleClick()} variant="secondary">
+            {expanded ? "Collapse" : "Expand"}
+          </Button>
+        </div>
+        {expanded ? renderDetails(value) : renderValue(value, displayList)}
       </div>
       <Handle type="target" position={Position.Left} id="a" className="z-10" />
     </>
@@ -184,7 +202,10 @@ export const OptionNode = ({ data }: BasicNodeProps) => {
   return (
     <>
       <div className={cn(defaultNodeStyle)}>
-        <label htmlFor="text">{title ? `${title}:` : "Mint:"}</label>
+        <label
+          htmlFor="text"
+          className="text-xl"
+        >{`${title || "Mint"}:`}</label>
         {renderValue(value)}
       </div>
       <Handle
@@ -202,7 +223,7 @@ export const FeeNode = ({ data }: BasicNodeProps) => {
   return (
     <>
       <div className={cn(defaultNodeStyle)}>
-        <label htmlFor="text">{title ? `${title}:` : "Fee:"}</label>
+        <label htmlFor="text" className="text-xl">{`${title || "Fee"}:`}</label>
         {renderValue(value)}
       </div>
       <Handle type="target" position={Position.Top} id="a" className="z-10" />
