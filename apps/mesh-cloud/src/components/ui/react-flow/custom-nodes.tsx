@@ -3,6 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 import { useState } from "react";
 
 import "@xyflow/react/dist/style.css";
+import { Button } from "../button";
 
 const defaultNodeStyle =
   "border border-gray-300 w-fit min-w-[200px] rounded-md p-4 relative flex justify-center flex-col items-start gap-2 bg-zinc-900";
@@ -46,6 +47,33 @@ const renderDetails = (value: any) => {
           displayValue.length > 24
             ? `${displayValue.slice(0, 24)}...`
             : displayValue;
+
+        let redirectLink = "";
+
+        switch (key.toLowerCase()) {
+          case "address":
+            redirectLink = `https://cardanoscan.io/address/${value[key]}`;
+            break;
+          case "datum":
+            redirectLink = `https://cardanoscan.io/datumInspector?datum=${value[key]}`;
+            break;
+          default:
+            break;
+        }
+
+        if (redirectLink) {
+          return (
+            <a
+              href={redirectLink}
+              target="_blank"
+              className={cn(
+                defaultValueStyle,
+                "cursor-pointer text-blue-500 underline",
+              )}
+            >{`${displayValue}`}</a>
+          );
+        }
+
         return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
       })}
     </div>
@@ -113,11 +141,21 @@ export const InputNode = ({ data }: BasicNodeProps) => {
 
   return (
     <>
-      <div className={cn(defaultNodeStyle)} onClick={handleClick}>
+      <div className={cn(defaultNodeStyle)}>
         <div className={cn(defaultIndexStyle)}>
           <p className="z-10 -rotate-45">{"#" + index}</p>
         </div>
-        <label htmlFor="text">{`${title || "Title"}:`}</label>
+        <div className="relative flex w-full items-center justify-between">
+          <label
+            htmlFor="text"
+            className="text-xl"
+          >{`${title || "Input"}:`}</label>
+
+          <Button onClick={() => handleClick()} variant="secondary">
+            {expanded ? "Collapse" : "Expand"}
+          </Button>
+        </div>
+
         {expanded ? renderDetails(value) : renderValue(value, displayList)}
       </div>
       <Handle type="source" position={Position.Right} id="a" className="z-10" />

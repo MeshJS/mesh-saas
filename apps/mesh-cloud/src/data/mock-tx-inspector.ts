@@ -3,7 +3,8 @@ const mockInput = {
     ada: 2,
     indy: 4.12,
     staking_position: 1,
-    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    address:
+      "addr1qxusc00n4x43dupshcex2tqusmmk05km3pdh7n8v2kkna6p8cc877hugvmhk6quuwx75zl608ch8fy4sp7jqam3uepzq5k4cmm",
     datum:
       "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
@@ -11,7 +12,8 @@ const mockInput = {
     ada: 3.21,
     indy: 4.12,
     staking_position: 1,
-    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    address:
+      "addr1qxusc00n4x43dupshcex2tqusmmk05km3pdh7n8v2kkna6p8cc877hugvmhk6quuwx75zl608ch8fy4sp7jqam3uepzq5k4cmm",
     datum:
       "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
@@ -19,7 +21,8 @@ const mockInput = {
     ada: 4.86,
     indy: 4.12,
     staking_position: 1,
-    address: "addr1qx234567890abcdefghijklmnopqrstuvwxyz",
+    address:
+      "addr1qxusc00n4x43dupshcex2tqusmmk05km3pdh7n8v2kkna6p8cc877hugvmhk6quuwx75zl608ch8fy4sp7jqam3uepzq5k4cmm",
     datum:
       "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
