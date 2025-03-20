@@ -61,7 +61,7 @@ export const outputToGraphProps = (body: any): GraphProps => {
       type: "txOutput",
       position: {
         x: graphCenter.x + 600,
-        y: graphCenter.y - ((output.length - 1) / 2) * 150 + 150 * index,
+        y: graphCenter.y - ((output.length - 1) / 2) * 150 + 220 * index,
       },
       data: { value: body[key], index: key },
     };

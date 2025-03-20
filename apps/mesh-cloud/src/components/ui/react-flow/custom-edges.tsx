@@ -8,10 +8,10 @@ export const MergeEdgeXLeft = ({
   targetX,
   targetY,
 }: EdgeProps) => {
-  const distanceBeforeMerge = 1 / 5;
-  const mergeX = Math.min(
+  const distanceBeforeMerge = 3 / 5;
+  const mergeX = Math.max(
     (targetX - sourceX) * distanceBeforeMerge + sourceX,
-    graphCenter.x + 100,
+    graphCenter.x - 200,
   );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${mergeX} ${sourceY} L ${mergeX} ${targetY} L ${targetX} ${targetY}`;
@@ -27,9 +27,9 @@ export const MergeEdgeXRight = ({
   targetY,
 }: EdgeProps) => {
   const distanceBeforeMerge = 4 / 5;
-  const mergeX = Math.max(
+  const mergeX = Math.min(
     (targetX - sourceX) * distanceBeforeMerge + sourceX,
-    graphCenter.x - 100,
+    graphCenter.x + 400,
   );
 
   const edgePath = `M ${sourceX} ${sourceY} L ${mergeX} ${sourceY} L ${mergeX} ${targetY} L ${targetX} ${targetY}`;
