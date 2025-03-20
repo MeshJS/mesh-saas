@@ -142,6 +142,7 @@ const feeToGraphProps = (body: any): GraphProps => {
   };
 };
 
+// TODO: Integrate with actual Json Format, now just using mock data format
 export const jsonToGraphProps = (json: any): GraphProps => {
   const { input, txHash, output, option, fee } = json;
 
