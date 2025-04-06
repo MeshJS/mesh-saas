@@ -47,6 +47,7 @@ const config = {
     "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-redundant-type-constituents": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
   },
 };
 module.exports = config;

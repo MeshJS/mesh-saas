@@ -27,7 +27,12 @@ const renderValue = (value: any, displayList: string[] = []) => {
               ? `${value[key]} ₳`
               : `${key.toUpperCase()}: ${value[key]}`;
 
-          return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
+          return (
+            <p
+              key={key}
+              className={cn(defaultValueStyle)}
+            >{`${displayValue}`}</p>
+          );
         }
       })}
     </>
@@ -69,6 +74,7 @@ const renderDetails = (value: any) => {
         if (redirectLink) {
           return (
             <a
+              key={key}
               href={redirectLink}
               target="_blank"
               className={cn(
@@ -79,7 +85,9 @@ const renderDetails = (value: any) => {
           );
         }
 
-        return <p className={cn(defaultValueStyle)}>{`${displayValue}`}</p>;
+        return (
+          <p key={key} className={cn(defaultValueStyle)}>{`${displayValue}`}</p>
+        );
       })}
     </div>
   );
