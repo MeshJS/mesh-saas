@@ -5,6 +5,8 @@ import Highlight from "react-highlight";
 import { useClipboard } from "@/hooks/useCopyClipboard";
 import { useHighlighter } from "@/hooks/useHighlighter";
 
+const HighlightFce = Highlight as any;
+
 export default function Codeblock({
   data,
   language = "language-js",
@@ -42,7 +44,7 @@ export default function Codeblock({
         <CopyIcon className="h-4 w-4" />
       </button>
 
-      <Highlight innerHTML>{code}</Highlight>
+      <HighlightFce innerHTML>{code}</HighlightFce>
     </div>
   );
 }
