@@ -61,16 +61,9 @@ export const decodePlutusCborUplc = (cborHex: string) => {
   );
 };
 
-export function replaceSerdeJsonNumbersWithString<T extends object>(
-  data: T,
-): T {
+export function replaceSerdeJsonNumbersWithString<T>(data: T): T {
   if (typeof data !== "object" || data === null) {
     return data;
-  }
-
-  const serdeJsonString = "$serde_json::private::Number";
-
-  if (data[serdeJsonString]) {
   }
 
   if (
