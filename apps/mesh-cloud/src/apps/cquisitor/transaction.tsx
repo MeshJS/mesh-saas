@@ -2,7 +2,7 @@ import CardSection from "@/components/card-section";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import DevLayout from "./layout";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import Metatags from "@/components/site/metatags";
@@ -10,66 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type Budget, type Action, type RedeemerTagType } from "@meshsdk/core";
 import { csl } from "@meshsdk/core-csl";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { getProvider } from "@/lib/provider";
-
-export function SelectNetwork({
-  setValue,
-  placeholder,
-  simplified = false,
-}: {
-  setValue: Dispatch<SetStateAction<any>>;
-  placeholder?: string;
-  simplified?: boolean;
-}) {
-  return (
-    <Select onValueChange={setValue}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder={placeholder ?? "Select a Network"} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="mainnet">Mainnet</SelectItem>
-          {simplified ? (
-            <SelectItem value="testnet">Testnet</SelectItem>
-          ) : (
-            <>
-              <SelectItem value="preprod">Preprod</SelectItem>
-              <SelectItem value="preview">Preview</SelectItem>
-            </>
-          )}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  );
-}
-
-export function SelectService({
-  setValue,
-}: {
-  setValue: Dispatch<SetStateAction<any>>;
-}) {
-  return (
-    <Select onValueChange={setValue}>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a Provider" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectItem value="blockfrost">Blockfrost</SelectItem>
-          <SelectItem value="maestro">Maestro</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  );
-}
+import { TopBar } from "./top-bar";
 
 type ActionSet = {
   [K in RedeemerTagType]: BudgetComparison[];
@@ -264,9 +206,24 @@ export default function DevTransaction() {
 
   const actionSets = calculateActionSet(actualRedeemer, expectedRedeemer);
 
+  useEffect(() => {
+    const apiKey = localStorage.getItem("apiKey");
+    if (apiKey) setApiKey(apiKey);
+    const network = localStorage.getItem("network");
+    if (network) setNetwork(network);
+  }, []);
+
   return (
     <DevLayout>
       <Metatags title="Transaction" />
+      <TopBar
+        network={network}
+        setNetwork={setNetwork}
+        setService={setService}
+        apiKey={apiKey}
+        setApiKey={setApiKey}
+        loading={loading}
+      />
       <>
         <CardSection
           title="Transaction"
@@ -358,24 +315,9 @@ export default function DevTransaction() {
                     disabled={loading}
                   />
                 </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="apiKey">API Key</Label>
-                  <Input
-                    id="apiKey"
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
-                    disabled={loading}
-                    type="password"
-                  />
-                </div>
               </>
             )}
           </>
-
-          <div className="flex flex-row gap-4">
-            <SelectNetwork setValue={setNetwork} />
-            <SelectService setValue={setService} />
-          </div>
         </CardSection>
       </>
     </DevLayout>
