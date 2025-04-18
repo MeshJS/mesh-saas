@@ -126,6 +126,9 @@ export default function Cquisitor() {
                 sx={{ fontSize: 14 }}
                 value={currentData}
                 theme="dark"
+                quotesOnKeys={false}
+                displayDataTypes={false}
+                rootName={false}
                 valueTypes={[
                   getPositionDataType(setCborPosition),
                   getTxIdDataType(network),
