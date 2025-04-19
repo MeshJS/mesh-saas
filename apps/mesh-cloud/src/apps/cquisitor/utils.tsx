@@ -25,7 +25,7 @@ export const nonCSLDecodeOption: Record<string, DecodeType> = {
 
 export const decodeCborToJson = (cborHex: string) => {
   const result = cq.cbor_to_json(cborHex);
-  return JSON.parse(replaceSerdeJsonNumbersWithString(result as any));
+  return replaceSerdeJsonNumbersWithString(result);
 };
 
 export const decodeByCsl = (
@@ -36,11 +36,11 @@ export const decodeByCsl = (
     plutus_data_schema: "DetailedSchema",
   },
 ): string => {
-  const decoded = cq.decode_specific_type(dataString, typeName, schemaType);
+  let decoded = cq.decode_specific_type(dataString, typeName, schemaType);
   if (typeof decoded === "string" || decoded instanceof String) {
-    return JSON.parse(decoded as string);
+    decoded = JSON.parse(decoded as string);
   }
-  return decoded;
+  return replaceSerdeJsonNumbersWithString(decoded);
 };
 
 export const checkTxSignature = (cborHex: string) => {
