@@ -131,9 +131,6 @@ const calculateActionSet = (
   actualRedeemer: Omit<Action, "data">[],
   expectedRedeemer: Omit<Action, "data">[],
 ): ActionSet => {
-  console.log("actualRedeemer", actualRedeemer);
-  console.log("expectedRedeemer", expectedRedeemer);
-
   const actionSets: ActionSet = {
     CERT: [],
     MINT: [],

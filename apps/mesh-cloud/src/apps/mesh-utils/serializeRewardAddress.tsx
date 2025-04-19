@@ -7,11 +7,11 @@ import { demoPubKeyHash } from "@/data/cardano";
 import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
-import { SelectNetwork } from "@/apps/dev/transaction";
 
 import MeshUtilsLayout from "./layout";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SelectNetwork } from "../cquisitor/top-bar";
 
 const EXPRESS_BACKEND_URL = process.env.NEXT_PUBLIC_EXPRESS_BACKEND_URL!;
 

@@ -32,7 +32,7 @@ export default function Cquisitor() {
   const [cborHex, setCborHex] = useState("");
   const [decodeType, setDecodeType] = useState<DecodeType>("decode-by-csl");
   const [currentType, setCurrentType] = useState("Transaction");
-  const [currentData, setCurrentData] = useState("");
+  const [currentData, setCurrentData] = useState<any>("");
 
   // display
   const [cborPosition, setCborPosition] = useState([0, 0]);
@@ -56,10 +56,7 @@ export default function Cquisitor() {
   }, [currentType, cborHex, decodeType]);
 
   let showAsJson = true;
-  if (
-    typeof currentData === "string" ||
-    (currentData as any) instanceof String
-  ) {
+  if (typeof currentData === "string" || currentData instanceof String) {
     console.log(currentData);
     showAsJson = false;
   }

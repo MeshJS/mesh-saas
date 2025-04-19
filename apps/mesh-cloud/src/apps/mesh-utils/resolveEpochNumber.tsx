@@ -1,4 +1,3 @@
-import { SelectNetwork } from "@/apps/dev/transaction";
 import CardSection from "@/components/card-section";
 import Metatags from "@/components/site/metatags";
 import Codeblock from "@/components/text/codeblock";
@@ -8,6 +7,7 @@ import { useValidateStaking } from "@/hooks/useValidateStaking";
 import axios from "axios";
 import { useState } from "react";
 import MeshUtilsLayout from "./layout";
+import { SelectNetwork } from "../cquisitor/top-bar";
 
 const EXPRESS_BACKEND_URL = process.env.NEXT_PUBLIC_EXPRESS_BACKEND_URL!;
 
