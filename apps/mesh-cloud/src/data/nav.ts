@@ -13,6 +13,6 @@ export const NAV = [
   },
   {
     label: "Cquisitor",
-    href: "/mesh-utils",
+    href: "/cquisitor",
   },
 ];
