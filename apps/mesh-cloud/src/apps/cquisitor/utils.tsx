@@ -97,7 +97,7 @@ export const decode = (
     const object_stub = {
       message1: "Welcome",
       message2:
-        "This is tool to decode CBOR into JSON representation. Just put your CBOR hex on the left side",
+        "This is tool to decode CBOR into JSON representation. Just put your CBOR hex on the top input. And choose CBOR to JSON option",
       message3:
         "You can also decode CBOR by cardano-serialization-lib. Choose that option on the top list to use it",
       message4:
