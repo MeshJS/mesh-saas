@@ -4,15 +4,15 @@ export const NAV = [
     href: "/yaci",
   },
   {
-    label: "DevTools",
-    href: "/dev",
-  },
-  {
     label: "Transaction",
     href: "/transaction",
   },
   {
     label: "Mesh Utils",
     href: "/mesh-utils",
+  },
+  {
+    label: "Cquisitor",
+    href: "/cquisitor",
   },
 ];

@@ -14,10 +14,14 @@ export const SIDENAV: {
       href: "/yaci/faucet",
     },
   ],
-  dev: [
+  cquisitor: [
+    {
+      label: "CBOR",
+      href: "/cquisitor",
+    },
     {
       label: "Transaction",
-      href: "/dev/transaction",
+      href: "/cquisitor/transaction",
     },
   ],
   transaction: [
