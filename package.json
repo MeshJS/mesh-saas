@@ -23,8 +23,5 @@
   "workspaces": [
     "apps/*",
     "backend/*"
-  ],
-  "dependencies": {
-    "@xyflow/react": "^12.4.4"
-  }
+  ]
 }

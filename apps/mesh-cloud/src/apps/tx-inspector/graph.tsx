@@ -1,101 +1,91 @@
-import { graphCenter } from "@/apps/tx-inspector/graph-config";
 import {
-  MergeEdgeXLeft,
-  MergeEdgeXRight,
-  MergeEdgeYBottom,
-  MergeEdgeYTop,
-} from "@/apps/tx-inspector/react-flow/custom-edges";
-import {
-  FeeNode,
-  InputNode,
-  OptionNode,
-  OutputNode,
+  ExpandableNode,
+  BasicNode,
   TxHashNode,
-} from "@/apps/tx-inspector/react-flow/custom-nodes";
-import { jsonToGraphProps } from "@/apps/tx-inspector/react-flow/json-parser";
+} from "@/apps/tx-inspector/nodes";
 import CardSection from "@/components/card-section";
 import Metatags from "@/components/site/metatags";
 import { Textarea } from "@/components/ui/textarea";
 import { mockJson } from "@/data/mock-tx-inspector";
-import {
-  addEdge,
-  ReactFlow,
-  ReactFlowProvider,
-  useEdgesState,
-  useNodesState,
-  useReactFlow,
-} from "@xyflow/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { useMemo, useState } from "react";
 import TxInspectorLayout from "./layout";
 
-import "@xyflow/react/dist/style.css";
-
 const TxInspectorGraph = () => {
-  const { setViewport } = useReactFlow();
+  const [tx, setTx] = useState<any>(mockJson);
 
-  const setInitialViewport = useCallback(() => {
-    setViewport(
-      {
-        x: graphCenter.x + 400,
-        y: graphCenter.y + 180,
-        zoom: 0.5,
-      },
-      {
-        duration: 600,
-      },
-    );
-  }, [setViewport]);
+  const nodes = useMemo(() => {
+    const inputNodes = Object.values(tx.inputs);
+    const outputNodes = Object.values(tx.outputs);
+    const optionNodes = Object.keys(tx.options).map((key) => {
+      return {
+        title: key,
+        value: tx.options[key],
+      };
+    });
 
-  useEffect(() => {
-    setInitialViewport();
-  }, [setInitialViewport]);
-
-  const { nodes: initialNodes, edges: initialEdges } =
-    jsonToGraphProps(mockJson);
-
-  const edgeTypes = useMemo(
-    () => ({
-      mergeXLeft: MergeEdgeXLeft,
-      mergeXRight: MergeEdgeXRight,
-      mergeYTop: MergeEdgeYTop,
-      mergeYBottom: MergeEdgeYBottom,
-    }),
-    [],
-  );
-
-  const nodeTypes = useMemo(
-    () => ({
-      txInput: InputNode,
-      txHash: TxHashNode,
-      txOutput: OutputNode,
-      txOption: OptionNode,
-      txFee: FeeNode,
-    }),
-    [],
-  );
-
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges],
-  );
+    return {
+      inputs: inputNodes,
+      outputs: outputNodes,
+      options: optionNodes,
+    };
+  }, [tx]);
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      edgeTypes={edgeTypes}
-      nodeTypes={nodeTypes}
-      colorMode="dark"
-      proOptions={{
-        hideAttribution: true,
-      }}
-    />
+    <>
+      {tx ? (
+        <div className="h-full w-full text-sm">
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="flex h-full w-full items-center justify-center">
+              <div className="flex h-full w-full flex-col justify-between gap-20">
+                <div className="flex justify-center gap-8">
+                  {nodes.inputs.map((value: any, index: number) => {
+                    return (
+                      <ExpandableNode data={{ title: "Input", value, index }} />
+                    );
+                  })}
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="grid grid-rows-2 gap-4">
+                    {nodes.options.map((node: any) => {
+                      if (["mint", "withdrawal"].includes(node.title)) {
+                        return <BasicNode data={{ ...node }} />;
+                      }
+                    })}
+                  </div>
+                  <TxHashNode data={{ value: mockJson.txHash }} />
+                  <div className="grid grid-rows-2 gap-4">
+                    {nodes.options.map((node: any) => {
+                      if (["fee", "burn", "donation"].includes(node.title)) {
+                        return <BasicNode data={{ ...node }} />;
+                      }
+                    })}
+                  </div>
+                </div>
+                <div className="flex items-start justify-around gap-4">
+                  {nodes.outputs.map((value: any, index: number) => {
+                    return (
+                      <ExpandableNode
+                        data={{ title: "Output", value, index }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="h-full w-full">
+              <p className="text-muted-foreground">No data to display</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -118,10 +108,8 @@ export default function CborToJson() {
         title="Tx Inspector"
         description="Transaction graph for your CBOR"
       >
-        <div className="h-[480px] w-full">
-          <ReactFlowProvider>
-            <TxInspectorGraph />
-          </ReactFlowProvider>
+        <div className="w-full">
+          <TxInspectorGraph />
         </div>
       </CardSection>
     </TxInspectorLayout>

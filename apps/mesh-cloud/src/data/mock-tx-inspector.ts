@@ -1,4 +1,8 @@
-const mockInput = {
+const mockTxHash = {
+  hashed_value: "somethingHash",
+};
+
+const mockInputs = {
   0: {
     ada: 2,
     indy: 4.12,
@@ -28,11 +32,7 @@ const mockInput = {
   },
 };
 
-const mockTxHash = {
-  hashed_value: "somethingHash",
-};
-
-const mockOutput = {
+const mockOutputs = {
   0: {
     ada: 3,
     indy: 4.12,
@@ -53,16 +53,13 @@ const mockOutput = {
   },
 };
 
-const mockOption = {
+const mockOptions = {
   mint: {
     staking_position: 1,
   },
   withdrawal: {
     ada: 2,
   },
-};
-
-const mockFee = {
   fee: {
     ada: 0.17,
   },
@@ -75,9 +72,8 @@ const mockFee = {
 };
 
 export const mockJson = {
-  input: mockInput,
   txHash: mockTxHash,
-  output: mockOutput,
-  option: mockOption,
-  fee: mockFee,
+  inputs: mockInputs,
+  outputs: mockOutputs,
+  options: mockOptions,
 };
