@@ -1,21 +1,22 @@
-import CardSection from "@/components/card-section";
-import Metatags from "@/components/site/metatags";
+import { graphCenter } from "@/apps/tx-inspector/graph-config";
 import {
   MergeEdgeXLeft,
   MergeEdgeXRight,
   MergeEdgeYBottom,
   MergeEdgeYTop,
-} from "@/components/ui/react-flow/custom-edges";
+} from "@/apps/tx-inspector/react-flow/custom-edges";
 import {
   FeeNode,
   InputNode,
   OptionNode,
   OutputNode,
   TxHashNode,
-} from "@/components/ui/react-flow/custom-nodes";
+} from "@/apps/tx-inspector/react-flow/custom-nodes";
+import { jsonToGraphProps } from "@/apps/tx-inspector/react-flow/json-parser";
+import CardSection from "@/components/card-section";
+import Metatags from "@/components/site/metatags";
 import { Textarea } from "@/components/ui/textarea";
 import { mockJson } from "@/data/mock-tx-inspector";
-import { jsonToGraphProps } from "@/lib/tx-inspector";
 import {
   addEdge,
   ReactFlow,
@@ -28,8 +29,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import TxInspectorLayout from "./layout";
 
 import "@xyflow/react/dist/style.css";
-
-export const graphCenter = { x: 0, y: 0 };
 
 const TxInspectorGraph = () => {
   const { setViewport } = useReactFlow();

@@ -3,7 +3,7 @@ import { Handle, Position } from "@xyflow/react";
 import { useState } from "react";
 
 import "@xyflow/react/dist/style.css";
-import { Button } from "../button";
+import { Button } from "../../../components/ui/button";
 
 const defaultNodeStyle =
   "border border-gray-300 w-fit min-w-[200px] rounded-md p-4 relative flex justify-center flex-col items-start gap-2 bg-zinc-900";

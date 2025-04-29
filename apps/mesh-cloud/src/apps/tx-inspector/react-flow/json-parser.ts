@@ -1,4 +1,4 @@
-import { graphCenter } from "@/apps/tx-inspector/graph";
+import { graphCenter } from "@/apps/tx-inspector/graph-config";
 import { type Edge, type Node } from "@xyflow/react";
 
 interface GraphProps {
@@ -6,6 +6,7 @@ interface GraphProps {
   edges: Edge[];
 }
 
+// Converts the Transaction Hash itself to props for graph nodes.
 export const txHashToGraphProps = (body: any): Node[] => {
   const nodes = [
     {
@@ -22,6 +23,7 @@ export const txHashToGraphProps = (body: any): Node[] => {
   return nodes;
 };
 
+// Converts the input-related information from JSON body to props for graph edges.
 export const inputToGraphProps = (body: any): GraphProps => {
   const input = Object.keys(body);
 
@@ -52,6 +54,7 @@ export const inputToGraphProps = (body: any): GraphProps => {
   };
 };
 
+// Converts the output-related information from JSON body to props for graph edges.
 export const outputToGraphProps = (body: any): GraphProps => {
   const output = Object.keys(body);
 
@@ -82,7 +85,8 @@ export const outputToGraphProps = (body: any): GraphProps => {
   };
 };
 
-const optionToGraphProps = (body: any): GraphProps => {
+// Converts the optional information like mint or withdrawal from JSON body to props for graph edges.
+const mintOptionsToGraphProps = (body: any): GraphProps => {
   const options = Object.keys(body);
 
   const nodes = options.map((key, index) => {
@@ -113,8 +117,11 @@ const optionToGraphProps = (body: any): GraphProps => {
   };
 };
 
-const feeToGraphProps = (body: any): GraphProps => {
-  const nodes = Object.keys(body).map((key, index) => {
+// Converts the optional information like fee, burn, and donation from JSON body to props for graph edges.
+const feeOptionsToGraphProps = (body: any): GraphProps => {
+  const options = Object.keys(body);
+
+  const nodes = options.map((key, index) => {
     return {
       id: `fee-${key}`,
       type: "txFee",
@@ -126,7 +133,7 @@ const feeToGraphProps = (body: any): GraphProps => {
     };
   });
 
-  const edges = Object.keys(body).map((key, index) => {
+  const edges = options.map((key, index) => {
     return {
       id: `link-fee-${key}-txHash`,
       type: "mergeYBottom",
@@ -143,6 +150,7 @@ const feeToGraphProps = (body: any): GraphProps => {
 };
 
 // TODO: Integrate with actual Json Format, now just using mock data format
+// Converts the entire JSON body to props for graph nodes and edges, using the above functions.
 export const jsonToGraphProps = (json: any): GraphProps => {
   const { input, txHash, output, option, fee } = json;
 
@@ -166,14 +174,14 @@ export const jsonToGraphProps = (json: any): GraphProps => {
 
   if (option) {
     const { nodes: optionNodes, edges: optionEdges } =
-      optionToGraphProps(option);
+      mintOptionsToGraphProps(option);
 
     graphNodes.push(...optionNodes);
     graphEdges.push(...optionEdges);
   }
 
   if (fee) {
-    const { nodes: feeNodes, edges: feeEdges } = feeToGraphProps(fee);
+    const { nodes: feeNodes, edges: feeEdges } = feeOptionsToGraphProps(fee);
 
     graphNodes.push(...feeNodes);
     graphEdges.push(...feeEdges);
