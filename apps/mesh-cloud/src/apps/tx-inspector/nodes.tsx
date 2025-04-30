@@ -116,7 +116,10 @@ export const BasicNode = ({ data, skew = false }: BasicNodeProps) => {
       <div
         className={cn("flex w-full flex-col gap-1", skew ? "skew-x-12" : "")}
       >
-        <label htmlFor="text" className="font-bold capitalize">
+        <label
+          htmlFor="text"
+          className="flex min-h-[36px] items-center text-base font-bold capitalize"
+        >
           {title + ":"}
         </label>
         {renderValue(value)}
@@ -143,8 +146,10 @@ export const ExpandableNode = ({ data }: BasicNodeProps) => {
       <div className="relative flex w-full items-center justify-between">
         <label
           htmlFor="text"
-          className="font-bold capitalize"
-        >{`${title || "Input"}:`}</label>
+          className="flex min-h-[36px] items-center text-base font-bold capitalize"
+        >
+          {title + ":"}
+        </label>
 
         {Object.keys(value).length > 3 && (
           <Button onClick={() => handleClick()} variant="secondary">

@@ -30,6 +30,18 @@ const mockInputs = {
     datum:
       "d87a9fd8799f581cfa773cf3b7cb0a80d8ff29e065ad3fc2a4bb075874f3fbac743fd368a0d8799f1b00000133e5035169ffffff",
   },
+  3: {
+    ada: 3,
+  },
+  4: {
+    ada: 4.21,
+  },
+  5: {
+    ada: 1.86,
+  },
+  6: {
+    ada: 512.34234234,
+  },
 };
 
 const mockOutputs = {

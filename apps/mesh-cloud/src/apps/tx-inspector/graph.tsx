@@ -10,6 +10,7 @@ import { mockJson } from "@/data/mock-tx-inspector";
 
 import { useMemo, useState } from "react";
 import TxInspectorLayout from "./layout";
+import { ConnectingEdges } from "./edges";
 
 const TxInspectorGraph = () => {
   const [tx, setTx] = useState<any>(mockJson);
@@ -34,11 +35,11 @@ const TxInspectorGraph = () => {
   return (
     <>
       {tx ? (
-        <div className="h-full w-full text-sm">
+        <div className="relative h-full w-full py-4 text-sm">
           <div className="flex h-full w-full items-center justify-center">
             <div className="flex h-full w-full items-center justify-center">
               <div className="flex h-full w-full flex-col justify-between gap-20">
-                <div className="flex justify-center gap-8">
+                <div className="flex flex-wrap-reverse justify-center gap-8">
                   {nodes.inputs.map((value: any, index: number) => {
                     return (
                       <ExpandableNode data={{ title: "Input", value, index }} />
@@ -46,7 +47,7 @@ const TxInspectorGraph = () => {
                   })}
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-8">
                   <div className="grid grid-rows-2 gap-4">
                     {nodes.options.map((node: any) => {
                       if (["mint", "withdrawal"].includes(node.title)) {
@@ -54,9 +55,14 @@ const TxInspectorGraph = () => {
                       }
                     })}
                   </div>
-                  <TxHashNode
-                    data={{ title: "Tx Hash", value: mockJson.txHash }}
-                  />
+                  <div className="relative flex h-full w-full items-center justify-center">
+                    <ConnectingEdges />
+                    <BasicNode
+                      skew
+                      data={{ title: "Tx Hash", value: mockJson.txHash }}
+                    />
+                  </div>
+
                   <div className="grid grid-rows-2 gap-4">
                     {nodes.options.map((node: any) => {
                       if (["fee", "burn", "donation"].includes(node.title)) {
@@ -65,7 +71,7 @@ const TxInspectorGraph = () => {
                     })}
                   </div>
                 </div>
-                <div className="flex items-start justify-around gap-4">
+                <div className="flex flex-wrap items-start justify-around gap-8">
                   {nodes.outputs.map((value: any, index: number) => {
                     return (
                       <ExpandableNode
