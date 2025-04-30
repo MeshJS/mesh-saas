@@ -54,7 +54,9 @@ const TxInspectorGraph = () => {
                       }
                     })}
                   </div>
-                  <TxHashNode data={{ value: mockJson.txHash }} />
+                  <TxHashNode
+                    data={{ title: "Tx Hash", value: mockJson.txHash }}
+                  />
                   <div className="grid grid-rows-2 gap-4">
                     {nodes.options.map((node: any) => {
                       if (["fee", "burn", "donation"].includes(node.title)) {
