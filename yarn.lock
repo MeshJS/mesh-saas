@@ -378,10 +378,10 @@
   resolved "https://registry.yarnpkg.com/@bufbuild/protobuf/-/protobuf-1.10.0.tgz#1a67ac889c2d464a3492b3e54c38f80517963b16"
   integrity sha512-QDdVFLoN93Zjg36NoQPZfsVH9tZew7wKDKyV5qRdj8ntT4wQCOradQjRaTdwMhWUYsgKsvCINKKm87FdEk96Ag==
 
-"@cardananium/cquisitor-lib@^0.1.0-beta.12":
-  version "0.1.0-beta.12"
-  resolved "https://registry.yarnpkg.com/@cardananium/cquisitor-lib/-/cquisitor-lib-0.1.0-beta.12.tgz#df0a495ca17d30663bd1afb17b4e901b24361755"
-  integrity sha512-eeeCpzyhfLACYT5sle6EZmgEr5iMBrPsR5j0IHqpa/Yt9dmnD0L3AueVPc8gBzugAR8GwdeW9FaT2NfQNLqgsQ==
+"@cardananium/cquisitor-lib@^0.1.0-beta.16":
+  version "0.1.0-beta.16"
+  resolved "https://registry.yarnpkg.com/@cardananium/cquisitor-lib/-/cquisitor-lib-0.1.0-beta.16.tgz#59298d6e62cf41c396b86d4d30324402bec7150b"
+  integrity sha512-wYsIJ9Lvygn+k/E+7CKCFy0twUwlJguwaNqEufDXEZ53dYaSsk9u3/FrmRGe2zjWxjLBviwRlSeLiQr9mB487Q==
 
 "@cardano-ogmios/client@6.3.0":
   version "6.3.0"
