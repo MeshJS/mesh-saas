@@ -39,4 +39,4 @@ jobs:
         run: |
           gcloud auth configure-docker asia-southeast1-docker.pkg.dev
       - name: Deploy Backend
-        run: yarn deploy
+        run: npm run deploy
