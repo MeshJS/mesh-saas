@@ -198,6 +198,13 @@ export default function DevTransaction() {
         setError(JSON.stringify(err));
       });
 
+    // get utxos with provider
+    // const utxos = (await provider.fetchUTxOs("", 1)) as cqLib.UTxO[];
+
+    // eval tx with cquisitor
+
+    // log cquisitor result / visualize the message in text box
+
     setLoading(false);
   }
 

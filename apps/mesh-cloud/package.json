@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.6.0",
-    "@cardananium/cquisitor-lib": "^0.1.0-beta.16",
+    "@cardananium/cquisitor-lib": "^0.1.0-beta.20",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.1.5",
