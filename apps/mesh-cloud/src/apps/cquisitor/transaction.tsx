@@ -8,10 +8,13 @@ import { Label } from "@/components/ui/label";
 import Metatags from "@/components/site/metatags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type Budget, type Action, type RedeemerTagType } from "@meshsdk/core";
-import { csl } from "@meshsdk/core-csl";
-
-import { getProvider } from "@/lib/provider";
 import { TopBar } from "./top-bar";
+import { validate } from "@/lib/validation";
+import { getTestTx } from "./test";
+import { Phase1WarningSection } from "./warning";
+import { Phase1ErrorSection } from "./error";
+import { getProvider } from "@/lib/provider";
+import { csl } from "@meshsdk/core-csl";
 
 type ActionSet = {
   [K in RedeemerTagType]: BudgetComparison[];
@@ -162,12 +165,14 @@ const calculateActionSet = (
     );
   });
 
-  console.log("calculateActionSet", actionSets);
+  // console.log("calculateActionSet", actionSets);
 
   return actionSets;
 };
 
 export default function DevTransaction() {
+  // const { wallet, connected, connect, address } = useWallet();
+
   const [txHex, setTxHex] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiKey, setApiKey] = useState("");
@@ -175,33 +180,82 @@ export default function DevTransaction() {
   const [service, setService] = useState<"blockfrost" | "maestro">(
     "blockfrost",
   );
+
+  const [inputError, setInputError] = useState<string | null>(null);
+
   const [actualRedeemer, setActualRedeemer] = useState<Omit<Action, "data">[]>(
     [],
   );
   const [expectedRedeemer, setExpectedRedeemer] = useState<
     Omit<Action, "data">[]
   >([]);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [phase1Success, setPhase1Success] = useState(false);
+  const [phase2Success, setPhase2Success] = useState(false);
+
+  const [phase1Errors, setPhase1Errors] = useState<any[]>([]);
+  const [phase1Warnings, setPhase1Warnings] = useState<any[]>([]);
+
+  const [phase2Error, setPhase2Error] = useState("");
 
   async function evaluateTx() {
     setLoading(true);
+    setPhase1Success(false);
+    setPhase2Success(false);
+    console.log("evaluating");
+
     const provider = getProvider(service, apiKey, network);
-    await provider
-      .evaluateTx(txHex)
-      .then((res) => {
-        console.log("res", res);
-        setSuccess(true);
-        setExpectedRedeemer(res);
-      })
-      .catch((err) => {
-        setError(JSON.stringify(err));
-      });
+
+    // For getting a test transaction
+    // const cbor = await getTestTx(service, apiKey, network, wallet);
+    // console.log("cbor", cbor);
+
+    // For testing
+    // const txJson: any = decodeByCsl(txHex, "Transaction", {
+    //   plutus_script_version: 3,
+    //   plutus_data_schema: "DetailedSchema",
+    // });
+
+    const phase1Result = await validate(txHex, service, apiKey, network);
+    const parsePhase1Result = JSON.parse(phase1Result);
+
+    if (parsePhase1Result.errors) {
+      setPhase1Errors(parsePhase1Result.errors);
+    }
+    if (parsePhase1Result.warnings) {
+      setPhase1Warnings(parsePhase1Result.warnings);
+    }
+    if (
+      parsePhase1Result.errors.length === 0 &&
+      parsePhase1Result.warnings.length === 0
+    ) {
+      setPhase1Success(true);
+
+      // Phase 2 validation
+      console.log("Phase 2 validation");
+
+      await provider
+        .evaluateTx(txHex)
+        .then((res) => {
+          console.log("res", res);
+          setPhase2Success(true);
+          setExpectedRedeemer(res);
+        })
+        .catch((err) => {
+          setPhase2Error(JSON.stringify(err));
+        });
+    }
 
     setLoading(false);
   }
 
   const actionSets = calculateActionSet(actualRedeemer, expectedRedeemer);
+
+  // connect wallet if not connected
+  // useEffect(() => {
+  //   if (!connected) {
+  //     connect("eternl");
+  //   }
+  // }, [connect, connected, wallet, address]);
 
   useEffect(() => {
     const apiKey = localStorage.getItem("apiKey");
@@ -226,96 +280,159 @@ export default function DevTransaction() {
           title="Transaction"
           description="Utility to evaluate a transaction for debugging."
           footer={
-            !success &&
-            !error && (
-              <Button onClick={() => evaluateTx()} disabled={loading}>
-                Evaluate
-              </Button>
-            )
+            <Button
+              onClick={() => {
+                if (!txHex || txHex.trim() === "") {
+                  setInputError("Transaction hex cannot be empty.");
+                  return;
+                }
+                try {
+                  csl.Transaction.from_hex(txHex); // This will throw if invalid
+                  setInputError(null);
+                } catch {
+                  setInputError("Invalid transaction hex format.");
+                  return;
+                }
+
+                const cslTx = csl.Transaction.from_hex(txHex);
+                const cslRedeemer = cslTx.witness_set().redeemers()?.to_json();
+                if (!cslRedeemer) {
+                  setActualRedeemer([]);
+                  evaluateTx();
+                  return;
+                }
+                const parsedActions: any[] = JSON.parse(cslRedeemer);
+                parsedActions.forEach((action) => {
+                  action.budget = {
+                    mem: Number(action.ex_units.mem),
+                    steps: Number(action.ex_units.steps),
+                  };
+                  action.tag = (action.tag as string).toLocaleUpperCase();
+                });
+                setActualRedeemer(parsedActions);
+                evaluateTx();
+              }}
+              disabled={loading}
+            >
+              Evaluate
+            </Button>
           }
         >
-          <>
-            {error ? (
-              <Alert>
-                <AlertTitle>Evaluation Result</AlertTitle>
-                <AlertDescription className="break-all">
-                  <code>{error}</code>
-                </AlertDescription>
-              </Alert>
-            ) : success ? (
+          <div className="grid gap-3">
+            <Label htmlFor="txHex">Transaction hex</Label>
+            <Input
+              id="txHex"
+              placeholder="Enter transaction hex here for evaluation"
+              value={txHex}
+              onChange={(e) => {
+                setTxHex(e.target.value);
+                setInputError(null);
+              }}
+              style={
+                inputError
+                  ? { borderColor: "rgb(200,0,0)", borderWidth: 1 }
+                  : {}
+              }
+              disabled={loading}
+            />
+
+            {inputError && (
+              <h1 className="text-sm text-red-600">{inputError}</h1>
+            )}
+          </div>
+
+          {loading && (
+            <Alert>
+              <AlertTitle>Evaluating transaction...</AlertTitle>
+            </Alert>
+          )}
+
+          {phase1Success && (
+            <>
               <Alert>
                 <div className="flex justify-between">
-                  <AlertTitle className="mr-20">Evaluation Result</AlertTitle>
-                  <div className="flex gap-2">
-                    <div className="relative h-4 w-24">
-                      <div
-                        className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
-                        style={{
-                          backgroundColor: "gray",
-                          minWidth: "fit-content",
-                        }}
-                      >
-                        <span>Eval Result</span>
-                      </div>
+                  <AlertTitle className="mr-20">Phase 1 Result</AlertTitle>
+                </div>
+                <h1 className="text-lg font-semibold text-green-600">
+                  Transaction is valid
+                </h1>
+              </Alert>
+            </>
+          )}
+
+          {!loading && phase2Success && (
+            <Alert>
+              <div className="flex justify-between">
+                <AlertTitle className="mr-20">Phase 2 Result</AlertTitle>
+                <div className="flex gap-2">
+                  <div className="relative h-4 w-24">
+                    <div
+                      className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
+                      style={{
+                        backgroundColor: "gray",
+                        minWidth: "fit-content",
+                      }}
+                    >
+                      <span>Eval Result</span>
                     </div>
-                    <div className="relative h-4 w-24">
-                      <div
-                        className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
-                        style={{
-                          backgroundColor: "green",
-                          minWidth: "fit-content",
-                        }}
-                      >
-                        <span>👍 Actual</span>
-                      </div>
+                  </div>
+                  <div className="relative h-4 w-24">
+                    <div
+                      className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
+                      style={{
+                        backgroundColor: "green",
+                        minWidth: "fit-content",
+                      }}
+                    >
+                      <span>👍 Actual</span>
                     </div>
-                    <div className="relative h-4 w-24">
-                      <div
-                        className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
-                        style={{
-                          backgroundColor: "red",
-                          minWidth: "fit-content",
-                        }}
-                      >
-                        <span>👎 Actual</span>
-                      </div>
+                  </div>
+                  <div className="relative h-4 w-24">
+                    <div
+                      className="font-small flex h-full items-center justify-center rounded-full px-2 text-xs"
+                      style={{
+                        backgroundColor: "red",
+                        minWidth: "fit-content",
+                      }}
+                    >
+                      <span>👎 Actual</span>
                     </div>
                   </div>
                 </div>
-                <ActionSetVisualizer actionSets={actionSets} />
-              </Alert>
-            ) : (
-              <>
-                <div className="grid gap-3">
-                  <Label htmlFor="txHex">Transaction hex</Label>
-                  <Input
-                    id="txHex"
-                    placeholder="84......"
-                    value={txHex}
-                    onChange={(e) => {
-                      const cslTx = csl.Transaction.from_hex(e.target.value);
-                      const cslRedeemer = cslTx
-                        .witness_set()
-                        .redeemers()
-                        ?.to_json();
-                      const parsedActions: any[] = JSON.parse(cslRedeemer!);
-                      parsedActions.forEach((action) => {
-                        action.budget = {
-                          mem: Number(action.ex_units.mem),
-                          steps: Number(action.ex_units.steps),
-                        };
-                        action.tag = (action.tag as string).toLocaleUpperCase();
-                      });
-                      setActualRedeemer(parsedActions);
-                      setTxHex(e.target.value);
-                    }}
-                    disabled={loading}
-                  />
-                </div>
-              </>
-            )}
-          </>
+              </div>
+              <ActionSetVisualizer actionSets={actionSets} />
+              {phase2Success && expectedRedeemer.length === 0 && (
+                <h3>No scripts in transaction.</h3>
+              )}
+            </Alert>
+          )}
+
+          {!loading && phase1Errors.length != 0 && (
+            <Alert>
+              <div className="flex justify-between">
+                <AlertTitle className="mr-20">Evaluation Result</AlertTitle>
+              </div>
+              <h1 className="text-lg font-semibold text-red-600">
+                Transaction is not valid. Phase 1 Errors detected.
+              </h1>
+            </Alert>
+          )}
+
+          {phase1Success && !phase2Success && (
+            <Alert>
+              <AlertTitle>Phase 2 Evaluation Result</AlertTitle>
+              <AlertDescription className="break-all">
+                <code>{phase2Error}</code>
+              </AlertDescription>
+            </Alert>
+          )}
         </CardSection>
+        {phase1Errors.length != 0 && (
+          <Phase1ErrorSection errors={phase1Errors} />
+        )}
+        {phase1Warnings.length != 0 && (
+          <Phase1WarningSection warnings={phase1Warnings} />
+        )}
       </>
     </DevLayout>
   );

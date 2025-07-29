@@ -7,7 +7,7 @@ export default function CquisitorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LayoutPage pageTitle="Cquisitors" sideNav="cquisitor">
+    <LayoutPage pageTitle="Cquisitor" sideNav="cquisitor">
       <Metatags title="Cquisitor" />
       {children}
     </LayoutPage>
