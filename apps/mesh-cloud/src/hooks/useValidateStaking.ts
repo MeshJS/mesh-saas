@@ -10,8 +10,11 @@ import {
 import { useWallet } from "@meshsdk/react";
 import { useCallback, useEffect, useState } from "react";
 
-const meshPoolId = process.env.NEXT_PUBLIC_MESH_POOL_ID!;
-const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!; // (Leon, 10/08/2024) - Use CIP-105 DRep ID for backward compatibility, as current Mesh csl does not support CIP-129 yet
+const sidanPoolId = process.env.NEXT_PUBLIC_SIDAN_POOL_ID!;
+const meshDRepId = process.env.NEXT_PUBLIC_MESH_DREP_ID!;
+const sidanDRepId = process.env.NEXT_PUBLIC_SIDAN_DREP_ID!;
+
+type DRepOption = "mesh" | "sidan";
 
 export function getProvider(network = "preprod") {
   const blockchainProvider = new BlockfrostProvider(
@@ -33,7 +36,7 @@ export const useValidateStaking = () => {
 
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isStaked, setIsStaked] = useState<boolean>(false);
-  const [isDRepDelegated, setIsDRepDelegated] = useState<boolean>(false);
+  const [isDRepDelegated, setIsDRepDelegated] = useState<DRepOption | "">("");
 
   const checkAddressInfo = async (stakeAddress: string) => {
     const info = await blockchainProvider.get(`/accounts/${stakeAddress}`);
@@ -42,12 +45,18 @@ export const useValidateStaking = () => {
 
     setIsRegistered(active);
 
-    if (active && pool_id && pool_id == meshPoolId) {
+    if (active && pool_id && pool_id == sidanPoolId) {
       setIsStaked(true);
     }
 
-    if (drep_id && drep_id == meshDRepId) {
-      setIsDRepDelegated(true);
+    if (drep_id) {
+      if (drep_id == sidanDRepId) {
+        setIsDRepDelegated("sidan");
+      }
+
+      if (drep_id == meshDRepId) {
+        setIsDRepDelegated("mesh");
+      }
     }
   };
 
@@ -68,7 +77,7 @@ export const useValidateStaking = () => {
         tx.registerStake(rewardAddress);
       }
 
-      tx.delegateStake(rewardAddress, meshPoolId);
+      tx.delegateStake(rewardAddress, sidanPoolId);
 
       const unsignedTx = await tx.build();
       const signedTx = await wallet.signTx(unsignedTx);
@@ -83,56 +92,59 @@ export const useValidateStaking = () => {
       setErrorMessage(`Error staking to pool.`);
       console.log(error);
     }
-  }, [rewardAddress, wallet, isRegistered, meshPoolId]);
+  }, [rewardAddress, wallet, isRegistered, sidanPoolId]);
 
-  const delegateDRep = useCallback(async () => {
-    if (!rewardAddress) {
-      setErrorMessage("Connect your wallet first before delegating to DRep");
-      return;
-    }
-    if (!wallet) {
-      setErrorMessage("Wallet not connected");
-      return;
-    }
+  const delegateDRep = useCallback(
+    async (drep: DRepOption = "sidan") => {
+      if (!rewardAddress) {
+        setErrorMessage("Connect your wallet first before delegating to DRep");
+        return;
+      }
+      if (!wallet) {
+        setErrorMessage("Wallet not connected");
+        return;
+      }
 
-    const utxos = await wallet.getUtxos();
+      const utxos = await wallet.getUtxos();
 
-    const changeAddress = await wallet.getChangeAddress();
+      const changeAddress = await wallet.getChangeAddress();
 
-    const assetMap = new Map<Unit, Quantity>();
-    assetMap.set("lovelace", "5000000");
-    const selectedUtxos = keepRelevant(assetMap, utxos);
+      const assetMap = new Map<Unit, Quantity>();
+      assetMap.set("lovelace", "5000000");
+      const selectedUtxos = keepRelevant(assetMap, utxos);
 
-    const txBuilder = new MeshTxBuilder();
+      const txBuilder = new MeshTxBuilder();
 
-    for (const utxo of selectedUtxos) {
-      txBuilder.txIn(
-        utxo.input.txHash,
-        utxo.input.outputIndex,
-        utxo.output.amount,
-        utxo.output.address,
-      );
-    }
+      for (const utxo of selectedUtxos) {
+        txBuilder.txIn(
+          utxo.input.txHash,
+          utxo.input.outputIndex,
+          utxo.output.amount,
+          utxo.output.address,
+        );
+      }
 
-    txBuilder
-      .voteDelegationCertificate(
-        {
-          dRepId: meshDRepId,
-        },
-        rewardAddress,
-      )
-      .changeAddress(changeAddress);
+      txBuilder
+        .voteDelegationCertificate(
+          {
+            dRepId: drep == "mesh" ? meshDRepId : sidanDRepId,
+          },
+          rewardAddress,
+        )
+        .changeAddress(changeAddress);
 
-    const unsignedTx = await txBuilder.complete();
-    const signedTx = await wallet.signTx(unsignedTx);
-    const txHash = await wallet.submitTx(signedTx);
-    console.log("DelegateDRep success: ", txHash);
+      const unsignedTx = await txBuilder.complete();
+      const signedTx = await wallet.signTx(unsignedTx);
+      const txHash = await wallet.submitTx(signedTx);
+      console.log("DelegateDRep success: ", txHash);
 
-    if (txHash) {
-      setErrorMessage(null);
-      setIsDRepDelegated(true);
-    }
-  }, [rewardAddress, wallet]);
+      if (txHash) {
+        setErrorMessage(null);
+        setIsDRepDelegated(drep);
+      }
+    },
+    [rewardAddress, wallet],
+  );
 
   useEffect(() => {
     if (walletInfo.name) {
